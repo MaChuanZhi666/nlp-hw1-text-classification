@@ -1,0 +1,1822 @@
+[
+  {
+    "row_id": 9704,
+    "true": "business",
+    "predicted": "sports",
+    "intercept_difference": -2.74356110420527,
+    "margin": 3.3398800904331294,
+    "toward_prediction": [
+      {
+        "word": "to",
+        "count": 31,
+        "margin_contribution": 0.8138140931271377
+      },
+      {
+        "word": "robinson",
+        "count": 7,
+        "margin_contribution": 0.6720911653874028
+      },
+      {
+        "word": "the",
+        "count": 52,
+        "margin_contribution": 0.659524667018743
+      },
+      {
+        "word": "league",
+        "count": 3,
+        "margin_contribution": 0.6053954536090153
+      },
+      {
+        "word": "baseball",
+        "count": 4,
+        "margin_contribution": 0.5899078115793063
+      },
+      {
+        "word": "42",
+        "count": 10,
+        "margin_contribution": 0.4764624315755127
+      },
+      {
+        "word": "by",
+        "count": 9,
+        "margin_contribution": 0.44117766814572895
+      },
+      {
+        "word": "contest",
+        "count": 6,
+        "margin_contribution": 0.4201570359706561
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "mr",
+        "count": 4,
+        "margin_contribution": -0.4551594555701314
+      },
+      {
+        "word": "like",
+        "count": 5,
+        "margin_contribution": -0.3262993620512484
+      },
+      {
+        "word": "marriott",
+        "count": 24,
+        "margin_contribution": -0.32518211510857625
+      },
+      {
+        "word": "markets",
+        "count": 2,
+        "margin_contribution": -0.29164195622389655
+      },
+      {
+        "word": "company",
+        "count": 4,
+        "margin_contribution": -0.27688243307647253
+      },
+      {
+        "word": "of",
+        "count": 15,
+        "margin_contribution": -0.23503000411268035
+      },
+      {
+        "word": "its",
+        "count": 5,
+        "margin_contribution": -0.21830218162909062
+      },
+      {
+        "word": "screenings",
+        "count": 5,
+        "margin_contribution": -0.21197142985987946
+      }
+    ]
+  },
+  {
+    "row_id": 6531,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 0.988020192164218,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 44,
+        "margin_contribution": 1.931174757641125
+      },
+      {
+        "word": "to",
+        "count": 37,
+        "margin_contribution": 1.6839454972880223
+      },
+      {
+        "word": "justice",
+        "count": 7,
+        "margin_contribution": 0.7835938244505153
+      },
+      {
+        "word": "that",
+        "count": 17,
+        "margin_contribution": 0.7274512902822716
+      },
+      {
+        "word": "law",
+        "count": 6,
+        "margin_contribution": 0.7043492008882309
+      },
+      {
+        "word": "he",
+        "count": 8,
+        "margin_contribution": 0.5939409253294101
+      },
+      {
+        "word": "campaigns",
+        "count": 5,
+        "margin_contribution": 0.5720284412926381
+      },
+      {
+        "word": "of",
+        "count": 24,
+        "margin_contribution": 0.513183706268697
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "union",
+        "count": 11,
+        "margin_contribution": -0.5524721566999641
+      },
+      {
+        "word": "chief",
+        "count": 2,
+        "margin_contribution": -0.3362256632116256
+      },
+      {
+        "word": "agreed",
+        "count": 5,
+        "margin_contribution": -0.23539388875871264
+      },
+      {
+        "word": "card",
+        "count": 4,
+        "margin_contribution": -0.22877209476468244
+      },
+      {
+        "word": "value",
+        "count": 5,
+        "margin_contribution": -0.17206487252602087
+      },
+      {
+        "word": "its",
+        "count": 2,
+        "margin_contribution": -0.09689366603134582
+      },
+      {
+        "word": "main",
+        "count": 1,
+        "margin_contribution": -0.08773493527800327
+      },
+      {
+        "word": "about",
+        "count": 3,
+        "margin_contribution": -0.08292650145701318
+      }
+    ]
+  },
+  {
+    "row_id": 6999,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 2.162122673321879,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 46,
+        "margin_contribution": 1.954584897833069
+      },
+      {
+        "word": "to",
+        "count": 21,
+        "margin_contribution": 0.9252804990075267
+      },
+      {
+        "word": "health",
+        "count": 10,
+        "margin_contribution": 0.9056135787765932
+      },
+      {
+        "word": "have",
+        "count": 9,
+        "margin_contribution": 0.7459150137802129
+      },
+      {
+        "word": "they",
+        "count": 10,
+        "margin_contribution": 0.7439916292248537
+      },
+      {
+        "word": "people",
+        "count": 7,
+        "margin_contribution": 0.4907436234579503
+      },
+      {
+        "word": "in",
+        "count": 18,
+        "margin_contribution": 0.4604620120235315
+      },
+      {
+        "word": "of",
+        "count": 20,
+        "margin_contribution": 0.41401818813320346
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "company",
+        "count": 2,
+        "margin_contribution": -0.19636463345333646
+      },
+      {
+        "word": "insurers",
+        "count": 9,
+        "margin_contribution": -0.1940298454060757
+      },
+      {
+        "word": "faster",
+        "count": 2,
+        "margin_contribution": -0.15910328864629106
+      },
+      {
+        "word": "less",
+        "count": 2,
+        "margin_contribution": -0.11564680980747162
+      },
+      {
+        "word": "consumers",
+        "count": 4,
+        "margin_contribution": -0.11195580607865574
+      },
+      {
+        "word": "management",
+        "count": 1,
+        "margin_contribution": -0.08838664252707848
+      },
+      {
+        "word": "partners",
+        "count": 1,
+        "margin_contribution": -0.08650749180467852
+      },
+      {
+        "word": "more",
+        "count": 3,
+        "margin_contribution": -0.08534393581505387
+      }
+    ]
+  },
+  {
+    "row_id": 2849,
+    "true": "politics",
+    "predicted": "business",
+    "intercept_difference": 21.841656192932167,
+    "margin": 0.21582733099835494,
+    "toward_prediction": [
+      {
+        "word": "carrier",
+        "count": 2,
+        "margin_contribution": 0.2755100562053376
+      },
+      {
+        "word": "silver",
+        "count": 4,
+        "margin_contribution": 0.26810309546740196
+      },
+      {
+        "word": "premium",
+        "count": 3,
+        "margin_contribution": 0.23361167052316573
+      },
+      {
+        "word": "about",
+        "count": 7,
+        "margin_contribution": 0.21773574207946866
+      },
+      {
+        "word": "lower",
+        "count": 3,
+        "margin_contribution": 0.18591382938972326
+      },
+      {
+        "word": "monthly",
+        "count": 3,
+        "margin_contribution": 0.180112036833963
+      },
+      {
+        "word": "tier",
+        "count": 2,
+        "margin_contribution": 0.17357122373093897
+      },
+      {
+        "word": "metal",
+        "count": 2,
+        "margin_contribution": 0.1574481595063266
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "the",
+        "count": 35,
+        "margin_contribution": -1.728608089223402
+      },
+      {
+        "word": "state",
+        "count": 4,
+        "margin_contribution": -0.8419730982356319
+      },
+      {
+        "word": "for",
+        "count": 19,
+        "margin_contribution": -0.785615079452301
+      },
+      {
+        "word": "have",
+        "count": 7,
+        "margin_contribution": -0.6743365019875319
+      },
+      {
+        "word": "of",
+        "count": 27,
+        "margin_contribution": -0.6496582806321789
+      },
+      {
+        "word": "and",
+        "count": 16,
+        "margin_contribution": -0.5978835629276384
+      },
+      {
+        "word": "county",
+        "count": 4,
+        "margin_contribution": -0.5765909236632343
+      },
+      {
+        "word": "to",
+        "count": 9,
+        "margin_contribution": -0.46092303550309066
+      }
+    ]
+  },
+  {
+    "row_id": 9312,
+    "true": "politics",
+    "predicted": "sports",
+    "intercept_difference": 19.098095088726897,
+    "margin": 0.8192818727373172,
+    "toward_prediction": [
+      {
+        "word": "baylor",
+        "count": 21,
+        "margin_contribution": 1.523753989389854
+      },
+      {
+        "word": "griner",
+        "count": 9,
+        "margin_contribution": 0.6888844290971293
+      },
+      {
+        "word": "heath",
+        "count": 4,
+        "margin_contribution": 0.32280561965550364
+      },
+      {
+        "word": "star",
+        "count": 3,
+        "margin_contribution": 0.22186456681069727
+      },
+      {
+        "word": "player",
+        "count": 2,
+        "margin_contribution": 0.22148490773988097
+      },
+      {
+        "word": "basketball",
+        "count": 3,
+        "margin_contribution": 0.2189192850430331
+      },
+      {
+        "word": "smith",
+        "count": 7,
+        "margin_contribution": 0.215521387767699
+      },
+      {
+        "word": "team",
+        "count": 2,
+        "margin_contribution": 0.2037805631916614
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "ms",
+        "count": 10,
+        "margin_contribution": -1.7102119355990653
+      },
+      {
+        "word": "mr",
+        "count": 7,
+        "margin_contribution": -1.2646517168707254
+      },
+      {
+        "word": "the",
+        "count": 47,
+        "margin_contribution": -1.0878519975785812
+      },
+      {
+        "word": "gay",
+        "count": 7,
+        "margin_contribution": -0.756533438032365
+      },
+      {
+        "word": "of",
+        "count": 22,
+        "margin_contribution": -0.7075461722208467
+      },
+      {
+        "word": "in",
+        "count": 25,
+        "margin_contribution": -0.6176321045516158
+      },
+      {
+        "word": "and",
+        "count": 20,
+        "margin_contribution": -0.5954341048878837
+      },
+      {
+        "word": "as",
+        "count": 12,
+        "margin_contribution": -0.5270889334025715
+      }
+    ]
+  },
+  {
+    "row_id": 6688,
+    "true": "business",
+    "predicted": "sports",
+    "intercept_difference": -2.74356110420527,
+    "margin": 0.6404932957390801,
+    "toward_prediction": [
+      {
+        "word": "to",
+        "count": 19,
+        "margin_contribution": 0.7439780657240042
+      },
+      {
+        "word": "his",
+        "count": 7,
+        "margin_contribution": 0.5348145458567637
+      },
+      {
+        "word": "the",
+        "count": 26,
+        "margin_contribution": 0.49186289972835673
+      },
+      {
+        "word": "he",
+        "count": 6,
+        "margin_contribution": 0.48814668036118325
+      },
+      {
+        "word": "him",
+        "count": 4,
+        "margin_contribution": 0.46629291442413306
+      },
+      {
+        "word": "old",
+        "count": 5,
+        "margin_contribution": 0.45237792323523973
+      },
+      {
+        "word": "next",
+        "count": 5,
+        "margin_contribution": 0.31483633793425375
+      },
+      {
+        "word": "boy",
+        "count": 9,
+        "margin_contribution": 0.3054713116951131
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "app",
+        "count": 5,
+        "margin_contribution": -0.8266972999102729
+      },
+      {
+        "word": "flight",
+        "count": 7,
+        "margin_contribution": -0.5016560835482461
+      },
+      {
+        "word": "my",
+        "count": 9,
+        "margin_contribution": -0.3637168059170918
+      },
+      {
+        "word": "sitting",
+        "count": 3,
+        "margin_contribution": -0.22213246150992624
+      },
+      {
+        "word": "airport",
+        "count": 2,
+        "margin_contribution": -0.21331527350647073
+      },
+      {
+        "word": "few",
+        "count": 3,
+        "margin_contribution": -0.2128738260484034
+      },
+      {
+        "word": "of",
+        "count": 8,
+        "margin_contribution": -0.18696704076259862
+      },
+      {
+        "word": "food",
+        "count": 1,
+        "margin_contribution": -0.17433606286396777
+      }
+    ]
+  },
+  {
+    "row_id": 4113,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 2.4219899369400406,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 32,
+        "margin_contribution": 1.7065176187597166
+      },
+      {
+        "word": "to",
+        "count": 21,
+        "margin_contribution": 1.1612814803682416
+      },
+      {
+        "word": "state",
+        "count": 5,
+        "margin_contribution": 1.136424348499447
+      },
+      {
+        "word": "insurance",
+        "count": 14,
+        "margin_contribution": 0.8826482243016925
+      },
+      {
+        "word": "health",
+        "count": 7,
+        "margin_contribution": 0.7956188366359334
+      },
+      {
+        "word": "they",
+        "count": 8,
+        "margin_contribution": 0.7470026237401898
+      },
+      {
+        "word": "obama",
+        "count": 3,
+        "margin_contribution": 0.6347736511646812
+      },
+      {
+        "word": "have",
+        "count": 6,
+        "margin_contribution": 0.6241114936574758
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "regulators",
+        "count": 4,
+        "margin_contribution": -0.34541407917777384
+      },
+      {
+        "word": "companies",
+        "count": 3,
+        "margin_contribution": -0.25565036716293615
+      },
+      {
+        "word": "consumers",
+        "count": 6,
+        "margin_contribution": -0.210766688088036
+      },
+      {
+        "word": "chief",
+        "count": 1,
+        "margin_contribution": -0.204264437186321
+      },
+      {
+        "word": "executive",
+        "count": 1,
+        "margin_contribution": -0.17975516624284085
+      },
+      {
+        "word": "commissioner",
+        "count": 4,
+        "margin_contribution": -0.16341224036567428
+      },
+      {
+        "word": "products",
+        "count": 1,
+        "margin_contribution": -0.13664194873395133
+      },
+      {
+        "word": "different",
+        "count": 3,
+        "margin_contribution": -0.13531969399437216
+      }
+    ]
+  },
+  {
+    "row_id": 11048,
+    "true": "business",
+    "predicted": "sports",
+    "intercept_difference": -2.74356110420527,
+    "margin": 0.19996453012592763,
+    "toward_prediction": [
+      {
+        "word": "to",
+        "count": 21,
+        "margin_contribution": 0.8384821676573049
+      },
+      {
+        "word": "event",
+        "count": 5,
+        "margin_contribution": 0.5996004344998944
+      },
+      {
+        "word": "the",
+        "count": 25,
+        "margin_contribution": 0.48225721273497046
+      },
+      {
+        "word": "events",
+        "count": 4,
+        "margin_contribution": 0.41029056979119005
+      },
+      {
+        "word": "with",
+        "count": 7,
+        "margin_contribution": 0.32410781080991424
+      },
+      {
+        "word": "ball",
+        "count": 2,
+        "margin_contribution": 0.23951282837358961
+      },
+      {
+        "word": "lewis",
+        "count": 2,
+        "margin_contribution": 0.22884619712760612
+      },
+      {
+        "word": "damian",
+        "count": 2,
+        "margin_contribution": 0.22839605734033083
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "my",
+        "count": 12,
+        "margin_contribution": -0.4945043433012118
+      },
+      {
+        "word": "food",
+        "count": 2,
+        "margin_contribution": -0.3555373530083037
+      },
+      {
+        "word": "people",
+        "count": 5,
+        "margin_contribution": -0.28740140851828444
+      },
+      {
+        "word": "it",
+        "count": 10,
+        "margin_contribution": -0.2102056177619862
+      },
+      {
+        "word": "large",
+        "count": 2,
+        "margin_contribution": -0.18673622155263725
+      },
+      {
+        "word": "of",
+        "count": 7,
+        "margin_contribution": -0.16681730954125293
+      },
+      {
+        "word": "more",
+        "count": 2,
+        "margin_contribution": -0.15653087610868313
+      },
+      {
+        "word": "we",
+        "count": 3,
+        "margin_contribution": -0.1540463262090294
+      }
+    ]
+  },
+  {
+    "row_id": 6878,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 4.590611388220637,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 77,
+        "margin_contribution": 3.407901828470239
+      },
+      {
+        "word": "state",
+        "count": 11,
+        "margin_contribution": 2.0749076083875795
+      },
+      {
+        "word": "government",
+        "count": 22,
+        "margin_contribution": 0.9132900451778097
+      },
+      {
+        "word": "states",
+        "count": 12,
+        "margin_contribution": 0.8111268107455781
+      },
+      {
+        "word": "obama",
+        "count": 4,
+        "margin_contribution": 0.7024140341668099
+      },
+      {
+        "word": "election",
+        "count": 3,
+        "margin_contribution": 0.6441963964319404
+      },
+      {
+        "word": "of",
+        "count": 28,
+        "margin_contribution": 0.6037360364943299
+      },
+      {
+        "word": "romney",
+        "count": 4,
+        "margin_contribution": 0.6034269091015932
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "based",
+        "count": 5,
+        "margin_contribution": -0.41567398558348156
+      },
+      {
+        "word": "bottom",
+        "count": 2,
+        "margin_contribution": -0.16697977588469926
+      },
+      {
+        "word": "jet",
+        "count": 1,
+        "margin_contribution": -0.1198865982883228
+      },
+      {
+        "word": "product",
+        "count": 1,
+        "margin_contribution": -0.11235756238885763
+      },
+      {
+        "word": "private",
+        "count": 2,
+        "margin_contribution": -0.0900832141993093
+      },
+      {
+        "word": "profits",
+        "count": 1,
+        "margin_contribution": -0.08987765947521727
+      },
+      {
+        "word": "fell",
+        "count": 1,
+        "margin_contribution": -0.07751538372816535
+      },
+      {
+        "word": "economies",
+        "count": 1,
+        "margin_contribution": -0.0708504010239951
+      }
+    ]
+  },
+  {
+    "row_id": 5165,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 0.8525395281594155,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 45,
+        "margin_contribution": 1.6725813368250273
+      },
+      {
+        "word": "mr",
+        "count": 19,
+        "margin_contribution": 1.4394111909065803
+      },
+      {
+        "word": "to",
+        "count": 30,
+        "margin_contribution": 1.1562543901136588
+      },
+      {
+        "word": "his",
+        "count": 16,
+        "margin_contribution": 0.7727301694799442
+      },
+      {
+        "word": "and",
+        "count": 24,
+        "margin_contribution": 0.6749228147076609
+      },
+      {
+        "word": "utah",
+        "count": 4,
+        "margin_contribution": 0.6337521255472162
+      },
+      {
+        "word": "federal",
+        "count": 6,
+        "margin_contribution": 0.5100827679276008
+      },
+      {
+        "word": "in",
+        "count": 22,
+        "margin_contribution": 0.49229112692429217
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "company",
+        "count": 5,
+        "margin_contribution": -0.4294190486450071
+      },
+      {
+        "word": "johnson",
+        "count": 19,
+        "margin_contribution": -0.3539243022035305
+      },
+      {
+        "word": "customers",
+        "count": 3,
+        "margin_contribution": -0.2484666577881055
+      },
+      {
+        "word": "bank",
+        "count": 1,
+        "margin_contribution": -0.16529239026347725
+      },
+      {
+        "word": "marketing",
+        "count": 2,
+        "margin_contribution": -0.13962438567579646
+      },
+      {
+        "word": "credit",
+        "count": 2,
+        "margin_contribution": -0.12548326003806837
+      },
+      {
+        "word": "aircraft",
+        "count": 1,
+        "margin_contribution": -0.09651901047090414
+      },
+      {
+        "word": "executives",
+        "count": 1,
+        "margin_contribution": -0.08707889321306488
+      }
+    ]
+  },
+  {
+    "row_id": 7009,
+    "true": "politics",
+    "predicted": "business",
+    "intercept_difference": 21.841656192932167,
+    "margin": 4.029959537319488,
+    "toward_prediction": [
+      {
+        "word": "wells",
+        "count": 18,
+        "margin_contribution": 1.2064119120430448
+      },
+      {
+        "word": "companies",
+        "count": 10,
+        "margin_contribution": 0.5218620799560112
+      },
+      {
+        "word": "company",
+        "count": 5,
+        "margin_contribution": 0.37730967858924386
+      },
+      {
+        "word": "pay",
+        "count": 8,
+        "margin_contribution": 0.18051217567282699
+      },
+      {
+        "word": "its",
+        "count": 5,
+        "margin_contribution": 0.18024277702057082
+      },
+      {
+        "word": "natural",
+        "count": 3,
+        "margin_contribution": 0.13642448910353294
+      },
+      {
+        "word": "management",
+        "count": 2,
+        "margin_contribution": 0.13586615918349415
+      },
+      {
+        "word": "abandoned",
+        "count": 7,
+        "margin_contribution": 0.1297103318935502
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "the",
+        "count": 64,
+        "margin_contribution": -2.0901206062573685
+      },
+      {
+        "word": "state",
+        "count": 13,
+        "margin_contribution": -1.8094411090644984
+      },
+      {
+        "word": "to",
+        "count": 38,
+        "margin_contribution": -1.286863185642386
+      },
+      {
+        "word": "wyoming",
+        "count": 10,
+        "margin_contribution": -0.7262997417203777
+      },
+      {
+        "word": "and",
+        "count": 26,
+        "margin_contribution": -0.6424404173139395
+      },
+      {
+        "word": "that",
+        "count": 15,
+        "margin_contribution": -0.4776048512879959
+      },
+      {
+        "word": "drilling",
+        "count": 9,
+        "margin_contribution": -0.4657688882229223
+      },
+      {
+        "word": "they",
+        "count": 8,
+        "margin_contribution": -0.4574595537848737
+      }
+    ]
+  },
+  {
+    "row_id": 7493,
+    "true": "politics",
+    "predicted": "business",
+    "intercept_difference": 21.841656192932167,
+    "margin": 1.2927039005946561,
+    "toward_prediction": [
+      {
+        "word": "management",
+        "count": 2,
+        "margin_contribution": 0.21717163063681671
+      },
+      {
+        "word": "natural",
+        "count": 2,
+        "margin_contribution": 0.14537605211608973
+      },
+      {
+        "word": "more",
+        "count": 4,
+        "margin_contribution": 0.1397970038307605
+      },
+      {
+        "word": "global",
+        "count": 1,
+        "margin_contribution": 0.13089480550427052
+      },
+      {
+        "word": "daniel",
+        "count": 1,
+        "margin_contribution": 0.10656085572143846
+      },
+      {
+        "word": "new",
+        "count": 6,
+        "margin_contribution": 0.09847052517930892
+      },
+      {
+        "word": "faster",
+        "count": 1,
+        "margin_contribution": 0.09773173764466009
+      },
+      {
+        "word": "appropriate",
+        "count": 1,
+        "margin_contribution": 0.09008031418460863
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "the",
+        "count": 33,
+        "margin_contribution": -1.72265023069633
+      },
+      {
+        "word": "goal",
+        "count": 9,
+        "margin_contribution": -0.9664358889166256
+      },
+      {
+        "word": "he",
+        "count": 10,
+        "margin_contribution": -0.8830138822585997
+      },
+      {
+        "word": "obama",
+        "count": 4,
+        "margin_contribution": -0.8284761232705145
+      },
+      {
+        "word": "to",
+        "count": 13,
+        "margin_contribution": -0.7036941268361115
+      },
+      {
+        "word": "department",
+        "count": 4,
+        "margin_contribution": -0.5755945633929005
+      },
+      {
+        "word": "percent",
+        "count": 6,
+        "margin_contribution": -0.5022270456122262
+      },
+      {
+        "word": "that",
+        "count": 9,
+        "margin_contribution": -0.4580488253039652
+      }
+    ]
+  },
+  {
+    "row_id": 4565,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 7.133829828464073,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 74,
+        "margin_contribution": 2.0643266990505347
+      },
+      {
+        "word": "to",
+        "count": 35,
+        "margin_contribution": 1.012446682023332
+      },
+      {
+        "word": "health",
+        "count": 13,
+        "margin_contribution": 0.7729230886511307
+      },
+      {
+        "word": "they",
+        "count": 15,
+        "margin_contribution": 0.7326715212768555
+      },
+      {
+        "word": "state",
+        "count": 6,
+        "margin_contribution": 0.7133582494260065
+      },
+      {
+        "word": "americans",
+        "count": 10,
+        "margin_contribution": 0.6978502446554603
+      },
+      {
+        "word": "of",
+        "count": 45,
+        "margin_contribution": 0.611578122293963
+      },
+      {
+        "word": "republicans",
+        "count": 6,
+        "margin_contribution": 0.607844246880807
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "its",
+        "count": 8,
+        "margin_contribution": -0.24633900875557208
+      },
+      {
+        "word": "financial",
+        "count": 3,
+        "margin_contribution": -0.09939967627305843
+      },
+      {
+        "word": "less",
+        "count": 2,
+        "margin_contribution": -0.0759248005345926
+      },
+      {
+        "word": "worth",
+        "count": 2,
+        "margin_contribution": -0.07384733248099953
+      },
+      {
+        "word": "like",
+        "count": 3,
+        "margin_contribution": -0.07325002326536754
+      },
+      {
+        "word": "market",
+        "count": 1,
+        "margin_contribution": -0.06865202879940042
+      },
+      {
+        "word": "buy",
+        "count": 3,
+        "margin_contribution": -0.060463762846220084
+      },
+      {
+        "word": "employed",
+        "count": 2,
+        "margin_contribution": -0.06031786733436611
+      }
+    ]
+  },
+  {
+    "row_id": 10714,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 3.4532751045491,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 66,
+        "margin_contribution": 1.527281136813235
+      },
+      {
+        "word": "to",
+        "count": 44,
+        "margin_contribution": 1.0558084563649655
+      },
+      {
+        "word": "health",
+        "count": 17,
+        "margin_contribution": 0.8384365306809852
+      },
+      {
+        "word": "people",
+        "count": 15,
+        "margin_contribution": 0.5726987424340034
+      },
+      {
+        "word": "their",
+        "count": 24,
+        "margin_contribution": 0.5496233377448937
+      },
+      {
+        "word": "she",
+        "count": 13,
+        "margin_contribution": 0.5325496867384771
+      },
+      {
+        "word": "they",
+        "count": 13,
+        "margin_contribution": 0.5267320525626182
+      },
+      {
+        "word": "insurance",
+        "count": 19,
+        "margin_contribution": 0.5197894629293417
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "chief",
+        "count": 3,
+        "margin_contribution": -0.26590608183118275
+      },
+      {
+        "word": "simon",
+        "count": 5,
+        "margin_contribution": -0.19719783130999854
+      },
+      {
+        "word": "marketing",
+        "count": 4,
+        "margin_contribution": -0.17385676351123855
+      },
+      {
+        "word": "executive",
+        "count": 2,
+        "margin_contribution": -0.15600037090139673
+      },
+      {
+        "word": "parent",
+        "count": 2,
+        "margin_contribution": -0.13328344961171323
+      },
+      {
+        "word": "about",
+        "count": 8,
+        "margin_contribution": -0.11659185941713841
+      },
+      {
+        "word": "more",
+        "count": 5,
+        "margin_contribution": -0.07746397205638171
+      },
+      {
+        "word": "strategy",
+        "count": 2,
+        "margin_contribution": -0.06484641358851
+      }
+    ]
+  },
+  {
+    "row_id": 7825,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 0.8345907632473666,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 28,
+        "margin_contribution": 2.1264240685088867
+      },
+      {
+        "word": "to",
+        "count": 14,
+        "margin_contribution": 1.102496681472578
+      },
+      {
+        "word": "ms",
+        "count": 8,
+        "margin_contribution": 0.9455888586090976
+      },
+      {
+        "word": "mr",
+        "count": 6,
+        "margin_contribution": 0.928751738122123
+      },
+      {
+        "word": "obama",
+        "count": 3,
+        "margin_contribution": 0.9039615145761758
+      },
+      {
+        "word": "and",
+        "count": 13,
+        "margin_contribution": 0.746970300931477
+      },
+      {
+        "word": "secretary",
+        "count": 4,
+        "margin_contribution": 0.7256964575736866
+      },
+      {
+        "word": "state",
+        "count": 2,
+        "margin_contribution": 0.647338699951358
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "fed",
+        "count": 4,
+        "margin_contribution": -0.6071038130725837
+      },
+      {
+        "word": "bank",
+        "count": 1,
+        "margin_contribution": -0.337730260676781
+      },
+      {
+        "word": "shares",
+        "count": 1,
+        "margin_contribution": -0.3122588535871713
+      },
+      {
+        "word": "financial",
+        "count": 3,
+        "margin_contribution": -0.2706014429606526
+      },
+      {
+        "word": "markets",
+        "count": 1,
+        "margin_contribution": -0.2586077394388904
+      },
+      {
+        "word": "banking",
+        "count": 2,
+        "margin_contribution": -0.23893688553426268
+      },
+      {
+        "word": "currency",
+        "count": 1,
+        "margin_contribution": -0.2310651569895995
+      },
+      {
+        "word": "regulator",
+        "count": 1,
+        "margin_contribution": -0.16832960448371692
+      }
+    ]
+  },
+  {
+    "row_id": 9945,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 1.071192110856526,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 34,
+        "margin_contribution": 1.5881846242931759
+      },
+      {
+        "word": "to",
+        "count": 23,
+        "margin_contribution": 1.1140567476067416
+      },
+      {
+        "word": "state",
+        "count": 4,
+        "margin_contribution": 0.7963276382650268
+      },
+      {
+        "word": "her",
+        "count": 9,
+        "margin_contribution": 0.6268524697776792
+      },
+      {
+        "word": "have",
+        "count": 6,
+        "margin_contribution": 0.5466677482915593
+      },
+      {
+        "word": "for",
+        "count": 13,
+        "margin_contribution": 0.5083854771429754
+      },
+      {
+        "word": "and",
+        "count": 14,
+        "margin_contribution": 0.4947869543500576
+      },
+      {
+        "word": "house",
+        "count": 4,
+        "margin_contribution": 0.4936540957592334
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "maybe",
+        "count": 3,
+        "margin_contribution": -0.17599310319968756
+      },
+      {
+        "word": "more",
+        "count": 5,
+        "margin_contribution": -0.15636760341474337
+      },
+      {
+        "word": "companies",
+        "count": 2,
+        "margin_contribution": -0.14928508980327948
+      },
+      {
+        "word": "buy",
+        "count": 4,
+        "margin_contribution": -0.1349923842800991
+      },
+      {
+        "word": "pay",
+        "count": 4,
+        "margin_contribution": -0.12909434020467064
+      },
+      {
+        "word": "products",
+        "count": 1,
+        "margin_contribution": -0.11968654190104598
+      },
+      {
+        "word": "customers",
+        "count": 1,
+        "margin_contribution": -0.10408645101801302
+      },
+      {
+        "word": "sales",
+        "count": 2,
+        "margin_contribution": -0.09259176863819668
+      }
+    ]
+  },
+  {
+    "row_id": 3536,
+    "true": "politics",
+    "predicted": "business",
+    "intercept_difference": 21.841656192932167,
+    "margin": 1.2074054220952526,
+    "toward_prediction": [
+      {
+        "word": "rates",
+        "count": 10,
+        "margin_contribution": 0.8369247777295283
+      },
+      {
+        "word": "loans",
+        "count": 5,
+        "margin_contribution": 0.760509594258297
+      },
+      {
+        "word": "interest",
+        "count": 6,
+        "margin_contribution": 0.5467856251981007
+      },
+      {
+        "word": "market",
+        "count": 2,
+        "margin_contribution": 0.3457320611877241
+      },
+      {
+        "word": "rate",
+        "count": 9,
+        "margin_contribution": 0.27281425382656227
+      },
+      {
+        "word": "based",
+        "count": 2,
+        "margin_contribution": 0.26388790184693034
+      },
+      {
+        "word": "parent",
+        "count": 1,
+        "margin_contribution": 0.20228988618091323
+      },
+      {
+        "word": "banks",
+        "count": 1,
+        "margin_contribution": 0.17139180777652396
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "the",
+        "count": 26,
+        "margin_contribution": -1.826317756139331
+      },
+      {
+        "word": "to",
+        "count": 16,
+        "margin_contribution": -1.1654144093338337
+      },
+      {
+        "word": "percent",
+        "count": 6,
+        "margin_contribution": -0.675802700891514
+      },
+      {
+        "word": "legislation",
+        "count": 3,
+        "margin_contribution": -0.6303307275384415
+      },
+      {
+        "word": "on",
+        "count": 9,
+        "margin_contribution": -0.5919068897735518
+      },
+      {
+        "word": "students",
+        "count": 5,
+        "margin_contribution": -0.5681047541208774
+      },
+      {
+        "word": "republican",
+        "count": 2,
+        "margin_contribution": -0.5651080099736923
+      },
+      {
+        "word": "house",
+        "count": 3,
+        "margin_contribution": -0.5567560326056981
+      }
+    ]
+  },
+  {
+    "row_id": 4043,
+    "true": "sports",
+    "predicted": "politics",
+    "intercept_difference": -19.098095088726897,
+    "margin": 2.5021231276859273,
+    "toward_prediction": [
+      {
+        "word": "veterans",
+        "count": 19,
+        "margin_contribution": 1.664721606465484
+      },
+      {
+        "word": "she",
+        "count": 21,
+        "margin_contribution": 1.0060420760166506
+      },
+      {
+        "word": "the",
+        "count": 46,
+        "margin_contribution": 0.9139271558499776
+      },
+      {
+        "word": "of",
+        "count": 28,
+        "margin_contribution": 0.7729865386977666
+      },
+      {
+        "word": "and",
+        "count": 30,
+        "margin_contribution": 0.7666669819280442
+      },
+      {
+        "word": "in",
+        "count": 24,
+        "margin_contribution": 0.5089591074761712
+      },
+      {
+        "word": "for",
+        "count": 26,
+        "margin_contribution": 0.49505351571652845
+      },
+      {
+        "word": "iraq",
+        "count": 4,
+        "margin_contribution": 0.49328397050016587
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "golf",
+        "count": 13,
+        "margin_contribution": -0.7316863360419604
+      },
+      {
+        "word": "club",
+        "count": 4,
+        "margin_contribution": -0.4948570353421666
+      },
+      {
+        "word": "tour",
+        "count": 2,
+        "margin_contribution": -0.21083275790514164
+      },
+      {
+        "word": "clubs",
+        "count": 2,
+        "margin_contribution": -0.21016526664071536
+      },
+      {
+        "word": "veteran",
+        "count": 5,
+        "margin_contribution": -0.1482507402893287
+      },
+      {
+        "word": "mitchell",
+        "count": 3,
+        "margin_contribution": -0.13646136195168884
+      },
+      {
+        "word": "patriots",
+        "count": 1,
+        "margin_contribution": -0.10102573773135026
+      },
+      {
+        "word": "course",
+        "count": 3,
+        "margin_contribution": -0.09791831804596675
+      }
+    ]
+  },
+  {
+    "row_id": 10398,
+    "true": "sports",
+    "predicted": "politics",
+    "intercept_difference": -19.098095088726897,
+    "margin": 0.9116690802194438,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 42,
+        "margin_contribution": 1.7220870296251685
+      },
+      {
+        "word": "of",
+        "count": 22,
+        "margin_contribution": 1.253396955684128
+      },
+      {
+        "word": "florida",
+        "count": 8,
+        "margin_contribution": 0.8310880114852082
+      },
+      {
+        "word": "coalition",
+        "count": 4,
+        "margin_contribution": 0.8097621816838994
+      },
+      {
+        "word": "protests",
+        "count": 4,
+        "margin_contribution": 0.6375150063204246
+      },
+      {
+        "word": "rights",
+        "count": 4,
+        "margin_contribution": 0.6361912063674035
+      },
+      {
+        "word": "and",
+        "count": 12,
+        "margin_contribution": 0.6328762619415567
+      },
+      {
+        "word": "in",
+        "count": 12,
+        "margin_contribution": 0.5251760950539764
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "sports",
+        "count": 4,
+        "margin_contribution": -0.6634242454622212
+      },
+      {
+        "word": "atlantic",
+        "count": 7,
+        "margin_contribution": -0.5865933613278297
+      },
+      {
+        "word": "athletic",
+        "count": 2,
+        "margin_contribution": -0.366136988819106
+      },
+      {
+        "word": "stadium",
+        "count": 3,
+        "margin_contribution": -0.3311825243632075
+      },
+      {
+        "word": "deal",
+        "count": 4,
+        "margin_contribution": -0.22003375171291967
+      },
+      {
+        "word": "teams",
+        "count": 1,
+        "margin_contribution": -0.1837983462034274
+      },
+      {
+        "word": "saunders",
+        "count": 4,
+        "margin_contribution": -0.16656122720508854
+      },
+      {
+        "word": "stadiums",
+        "count": 2,
+        "margin_contribution": -0.1378733951441022
+      }
+    ]
+  },
+  {
+    "row_id": 9498,
+    "true": "business",
+    "predicted": "politics",
+    "intercept_difference": -21.841656192932167,
+    "margin": 0.6633722211181845,
+    "toward_prediction": [
+      {
+        "word": "the",
+        "count": 51,
+        "margin_contribution": 2.4226404623864286
+      },
+      {
+        "word": "state",
+        "count": 5,
+        "margin_contribution": 1.0122750257683242
+      },
+      {
+        "word": "department",
+        "count": 6,
+        "margin_contribution": 0.7856761427961726
+      },
+      {
+        "word": "nevada",
+        "count": 4,
+        "margin_contribution": 0.7325431579177467
+      },
+      {
+        "word": "to",
+        "count": 14,
+        "margin_contribution": 0.6896110841085238
+      },
+      {
+        "word": "that",
+        "count": 12,
+        "margin_contribution": 0.5557585258249985
+      },
+      {
+        "word": "federal",
+        "count": 5,
+        "margin_contribution": 0.5432546640985105
+      },
+      {
+        "word": "had",
+        "count": 5,
+        "margin_contribution": 0.49045008687256886
+      }
+    ],
+    "toward_true": [
+      {
+        "word": "market",
+        "count": 2,
+        "margin_contribution": -0.23380589243470448
+      },
+      {
+        "word": "reported",
+        "count": 3,
+        "margin_contribution": -0.2109677040824906
+      },
+      {
+        "word": "investors",
+        "count": 1,
+        "margin_contribution": -0.17008161750136638
+      },
+      {
+        "word": "makers",
+        "count": 1,
+        "margin_contribution": -0.14370795531539343
+      },
+      {
+        "word": "economy",
+        "count": 3,
+        "margin_contribution": -0.13752683889341624
+      },
+      {
+        "word": "reporting",
+        "count": 2,
+        "margin_contribution": -0.12467988509566445
+      },
+      {
+        "word": "caused",
+        "count": 2,
+        "margin_contribution": -0.12183281901712463
+      },
+      {
+        "word": "unemployment",
+        "count": 3,
+        "margin_contribution": -0.10733334234248015
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+Tokenized train {'n': 9157, 'mean_wordpieces': 833.7859560991591, 'truncated_n': 7400, 'truncated_fraction': 0.8081249317462051, 'token_retained_fraction': 0.5657370590982711, 'by_class': {'business': {'n': 1134, 'truncated_n': 961}, 'politics': {'n': 1146, 'truncated_n': 1052}, 'sports': {'n': 6877, 'truncated_n': 5387}}}
+Tokenized valid {'n': 1145, 'mean_wordpieces': 824.95807860262, 'truncated_n': 927, 'truncated_fraction': 0.8096069868995633, 'token_retained_fraction': 0.5692156383227625, 'by_class': {'business': {'n': 141, 'truncated_n': 119}, 'politics': {'n': 144, 'truncated_n': 138}, 'sports': {'n': 860, 'truncated_n': 670}}}
+Tokenized test {'n': 1145, 'mean_wordpieces': 826.8445414847162, 'truncated_n': 932, 'truncated_fraction': 0.8139737991266376, 'token_retained_fraction': 0.5704171274598965, 'by_class': {'business': {'n': 142, 'truncated_n': 121}, 'politics': {'n': 143, 'truncated_n': 133}, 'sports': {'n': 860, 'truncated_n': 678}}}
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at /home/mcz/nlp_hw1_20260922_01a0c6a3/models/bert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+You're using a BertTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+epoch 1/3 batch 100/573 loss=1.0015 elapsed=13s
+epoch 1/3 batch 200/573 loss=0.6339 elapsed=25s
+epoch 1/3 batch 300/573 loss=0.4473 elapsed=37s
+epoch 1/3 batch 400/573 loss=0.3503 elapsed=49s
+epoch 1/3 batch 500/573 loss=0.2902 elapsed=62s
+VALIDATION {'epoch': 1, 'train_loss': 0.25899932867993536, 'validation_loss': 0.0349970321998602, 'accuracy': 0.9868995633187773, 'macro_f1': 0.9668638650890794, 'seconds': 74.03927234746516}
+epoch 2/3 batch 100/573 loss=0.0304 elapsed=13s
+epoch 2/3 batch 200/573 loss=0.0243 elapsed=27s
+epoch 2/3 batch 300/573 loss=0.0281 elapsed=40s
+epoch 2/3 batch 400/573 loss=0.0314 elapsed=54s
+epoch 2/3 batch 500/573 loss=0.0325 elapsed=68s
+VALIDATION {'epoch': 2, 'train_loss': 0.030430951544938595, 'validation_loss': 0.03671266480753662, 'accuracy': 0.9860262008733625, 'macro_f1': 0.966303078031916, 'seconds': 81.16181492805481}
+epoch 3/3 batch 100/573 loss=0.0166 elapsed=14s
+epoch 3/3 batch 200/573 loss=0.0124 elapsed=28s
+epoch 3/3 batch 300/573 loss=0.0137 elapsed=42s
+epoch 3/3 batch 400/573 loss=0.0133 elapsed=56s
+epoch 3/3 batch 500/573 loss=0.0123 elapsed=70s
+VALIDATION {'epoch': 3, 'train_loss': 0.012445191127895518, 'validation_loss': 0.038664202293987066, 'accuracy': 0.9877729257641922, 'macro_f1': 0.9682731176810377, 'seconds': 82.96682282164693}
+T3 COMPLETE 0.9868995633187773 0.9698415559869554 epoch 3

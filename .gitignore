@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+models/*/*
+!models/*/source.json
+*.kv
+*.npy
+*.npz
+*.joblib
+**/best_model/
+*.aux
+*.toc
+*.out
+tmp/

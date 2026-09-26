@@ -1,0 +1,65 @@
+{
+  "train": {
+    "n": 9157,
+    "mean_wordpieces": 833.7859560991591,
+    "truncated_n": 7400,
+    "truncated_fraction": 0.8081249317462051,
+    "token_retained_fraction": 0.5657370590982711,
+    "by_class": {
+      "business": {
+        "n": 1134,
+        "truncated_n": 961
+      },
+      "politics": {
+        "n": 1146,
+        "truncated_n": 1052
+      },
+      "sports": {
+        "n": 6877,
+        "truncated_n": 5387
+      }
+    }
+  },
+  "valid": {
+    "n": 1145,
+    "mean_wordpieces": 824.95807860262,
+    "truncated_n": 927,
+    "truncated_fraction": 0.8096069868995633,
+    "token_retained_fraction": 0.5692156383227625,
+    "by_class": {
+      "business": {
+        "n": 141,
+        "truncated_n": 119
+      },
+      "politics": {
+        "n": 144,
+        "truncated_n": 138
+      },
+      "sports": {
+        "n": 860,
+        "truncated_n": 670
+      }
+    }
+  },
+  "test": {
+    "n": 1145,
+    "mean_wordpieces": 826.8445414847162,
+    "truncated_n": 932,
+    "truncated_fraction": 0.8139737991266376,
+    "token_retained_fraction": 0.5704171274598965,
+    "by_class": {
+      "business": {
+        "n": 142,
+        "truncated_n": 121
+      },
+      "politics": {
+        "n": 143,
+        "truncated_n": 133
+      },
+      "sports": {
+        "n": 860,
+        "truncated_n": 678
+      }
+    }
+  }
+}

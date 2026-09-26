@@ -1,0 +1,7 @@
+# Tested with Python 3.8.10 and an existing torch==2.1.2+cu121 CUDA installation.
+# Install PyTorch for the machine separately; do not replace a working system CUDA stack blindly.
+numpy==1.24.4
+pandas==2.0.3
+scikit-learn==1.3.2
+transformers==4.46.3
+safetensors==0.5.3

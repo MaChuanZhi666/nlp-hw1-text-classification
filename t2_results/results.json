@@ -1,0 +1,571 @@
+{
+  "provenance": {
+    "nyt.csv": "de12ebe7f41316b798896bf975da840e2998f82393328d375fe5456a14e9eb2d",
+    "t1_results/splits.csv": "4de67b1b482685379c1836ec32c5947ff3e813213473a7a81ee6a44a9d72a281"
+  },
+  "classes": [
+    "business",
+    "politics",
+    "sports"
+  ],
+  "seed": 42,
+  "versions": {
+    "python": "3.13.5",
+    "gensim": "4.4.0",
+    "sklearn": "1.8.0"
+  },
+  "config": {
+    "vector_size": 100,
+    "window": 5,
+    "min_count": 2,
+    "negative": 5,
+    "sample": 0.001,
+    "epochs": 10,
+    "workers": 1,
+    "pooling": "mean of in-vocabulary tokens, including repeated occurrences; then L2 normalize",
+    "classifier": "OneVsRest LogisticRegression liblinear L2 class_weight=None",
+    "C_grid": [
+      0.01,
+      0.1,
+      1,
+      10,
+      100
+    ],
+    "external_corpus": false,
+    "sentence_count": 339570
+  },
+  "models": {
+    "cbow": {
+      "sg": 0,
+      "C": 100,
+      "validation": [
+        {
+          "C": 0.01,
+          "accuracy": 0.8620087336244542,
+          "macro_f1": 0.7055883434520293
+        },
+        {
+          "C": 0.1,
+          "accuracy": 0.9537117903930131,
+          "macro_f1": 0.9033226510283389
+        },
+        {
+          "C": 1,
+          "accuracy": 0.9694323144104804,
+          "macro_f1": 0.9335177901283888
+        },
+        {
+          "C": 10,
+          "accuracy": 0.982532751091703,
+          "macro_f1": 0.9590420950391262
+        },
+        {
+          "C": 100,
+          "accuracy": 0.9868995633187773,
+          "macro_f1": 0.966969369817115
+        }
+      ],
+      "selected_validation": {
+        "C": 100,
+        "accuracy": 0.9868995633187773,
+        "macro_f1": 0.966969369817115
+      },
+      "test": {
+        "accuracy": 0.9816593886462882,
+        "macro_f1": 0.9568449585678444,
+        "report": {
+          "business": {
+            "precision": 0.9558823529411765,
+            "recall": 0.9154929577464789,
+            "f1-score": 0.935251798561151,
+            "support": 142.0
+          },
+          "politics": {
+            "precision": 0.9139072847682119,
+            "recall": 0.965034965034965,
+            "f1-score": 0.9387755102040817,
+            "support": 143.0
+          },
+          "sports": {
+            "precision": 0.9976689976689976,
+            "recall": 0.9953488372093023,
+            "f1-score": 0.9965075669383003,
+            "support": 860.0
+          },
+          "accuracy": 0.9816593886462882,
+          "macro avg": {
+            "precision": 0.9558195451261287,
+            "recall": 0.9586255866635821,
+            "f1-score": 0.9568449585678444,
+            "support": 1145.0
+          },
+          "weighted avg": {
+            "precision": 0.9820256540042266,
+            "recall": 0.9816593886462882,
+            "f1-score": 0.981700577224284,
+            "support": 1145.0
+          }
+        },
+        "confusion": [
+          [
+            130,
+            10,
+            2
+          ],
+          [
+            5,
+            138,
+            0
+          ],
+          [
+            1,
+            3,
+            856
+          ]
+        ],
+        "errors": 21
+      },
+      "vocabulary": 43337,
+      "coverage": {
+        "train": {
+          "token_coverage": 0.9969235021202678,
+          "empty_vectors": 0
+        },
+        "valid": {
+          "token_coverage": 0.9923272789480158,
+          "empty_vectors": 0
+        },
+        "test": {
+          "token_coverage": 0.991815821428924,
+          "empty_vectors": 0
+        }
+      },
+      "neighbors": {
+        "company": [
+          {
+            "word": "airline",
+            "cosine": 0.7673587799072266
+          },
+          {
+            "word": "fiat",
+            "cosine": 0.7460646033287048
+          },
+          {
+            "word": "chevron",
+            "cosine": 0.7328829765319824
+          },
+          {
+            "word": "retailer",
+            "cosine": 0.7221999764442444
+          },
+          {
+            "word": "corporation",
+            "cosine": 0.714862048625946
+          },
+          {
+            "word": "toyota",
+            "cosine": 0.7109054327011108
+          }
+        ],
+        "market": [
+          {
+            "word": "economy",
+            "cosine": 0.7755758762359619
+          },
+          {
+            "word": "markets",
+            "cosine": 0.7427462339401245
+          },
+          {
+            "word": "demand",
+            "cosine": 0.6854318976402283
+          },
+          {
+            "word": "industry",
+            "cosine": 0.6716200113296509
+          },
+          {
+            "word": "growth",
+            "cosine": 0.6620889902114868
+          },
+          {
+            "word": "trend",
+            "cosine": 0.653387725353241
+          }
+        ],
+        "insurance": [
+          {
+            "word": "coverage",
+            "cosine": 0.7762144804000854
+          },
+          {
+            "word": "medicaid",
+            "cosine": 0.7285393476486206
+          },
+          {
+            "word": "marketplace",
+            "cosine": 0.7166377902030945
+          },
+          {
+            "word": "farmers",
+            "cosine": 0.7033659219741821
+          },
+          {
+            "word": "exchanges",
+            "cosine": 0.7010564804077148
+          },
+          {
+            "word": "crop",
+            "cosine": 0.6996931433677673
+          }
+        ],
+        "government": [
+          {
+            "word": "regulators",
+            "cosine": 0.7335277199745178
+          },
+          {
+            "word": "congress",
+            "cosine": 0.7055850028991699
+          },
+          {
+            "word": "regulatory",
+            "cosine": 0.6980075836181641
+          },
+          {
+            "word": "debt",
+            "cosine": 0.6940950751304626
+          },
+          {
+            "word": "commission",
+            "cosine": 0.6925922632217407
+          },
+          {
+            "word": "unions",
+            "cosine": 0.6906638145446777
+          }
+        ],
+        "football": [
+          {
+            "word": "basketball",
+            "cosine": 0.728420615196228
+          },
+          {
+            "word": "soccer",
+            "cosine": 0.6834695935249329
+          },
+          {
+            "word": "hockey",
+            "cosine": 0.6386935710906982
+          },
+          {
+            "word": "sport",
+            "cosine": 0.5717148184776306
+          },
+          {
+            "word": "tennis",
+            "cosine": 0.5611830353736877
+          },
+          {
+            "word": "athletic",
+            "cosine": 0.5516148209571838
+          }
+        ],
+        "team": [
+          {
+            "word": "squad",
+            "cosine": 0.664705216884613
+          },
+          {
+            "word": "franchise",
+            "cosine": 0.6310004591941833
+          },
+          {
+            "word": "teams",
+            "cosine": 0.6233056783676147
+          },
+          {
+            "word": "offense",
+            "cosine": 0.5433588027954102
+          },
+          {
+            "word": "game",
+            "cosine": 0.5172461271286011
+          },
+          {
+            "word": "club",
+            "cosine": 0.5023225545883179
+          }
+        ]
+      },
+      "seconds": 47.05781630001729
+    },
+    "skipgram": {
+      "sg": 1,
+      "C": 100,
+      "validation": [
+        {
+          "C": 0.01,
+          "accuracy": 0.7510917030567685,
+          "macro_f1": 0.28595178719867
+        },
+        {
+          "C": 0.1,
+          "accuracy": 0.9344978165938864,
+          "macro_f1": 0.8706548929599279
+        },
+        {
+          "C": 1,
+          "accuracy": 0.965938864628821,
+          "macro_f1": 0.9281157627687837
+        },
+        {
+          "C": 10,
+          "accuracy": 0.9851528384279477,
+          "macro_f1": 0.9658608040877162
+        },
+        {
+          "C": 100,
+          "accuracy": 0.9895196506550218,
+          "macro_f1": 0.9738763393639972
+        }
+      ],
+      "selected_validation": {
+        "C": 100,
+        "accuracy": 0.9895196506550218,
+        "macro_f1": 0.9738763393639972
+      },
+      "test": {
+        "accuracy": 0.982532751091703,
+        "macro_f1": 0.9588923399362091,
+        "report": {
+          "business": {
+            "precision": 0.9699248120300752,
+            "recall": 0.9084507042253521,
+            "f1-score": 0.9381818181818182,
+            "support": 142.0
+          },
+          "politics": {
+            "precision": 0.92,
+            "recall": 0.965034965034965,
+            "f1-score": 0.9419795221843004,
+            "support": 143.0
+          },
+          "sports": {
+            "precision": 0.9953596287703016,
+            "recall": 0.9976744186046511,
+            "f1-score": 0.9965156794425087,
+            "support": 860.0
+          },
+          "accuracy": 0.982532751091703,
+          "macro avg": {
+            "precision": 0.9617614802667923,
+            "recall": 0.9570533626216561,
+            "f1-score": 0.9588923399362091,
+            "support": 1145.0
+          },
+          "weighted avg": {
+            "precision": 0.9827935406556595,
+            "recall": 0.982532751091703,
+            "f1-score": 0.9824701957857909,
+            "support": 1145.0
+          }
+        },
+        "confusion": [
+          [
+            129,
+            10,
+            3
+          ],
+          [
+            4,
+            138,
+            1
+          ],
+          [
+            0,
+            2,
+            858
+          ]
+        ],
+        "errors": 20
+      },
+      "vocabulary": 43337,
+      "coverage": {
+        "train": {
+          "token_coverage": 0.9969235021202678,
+          "empty_vectors": 0
+        },
+        "valid": {
+          "token_coverage": 0.9923272789480158,
+          "empty_vectors": 0
+        },
+        "test": {
+          "token_coverage": 0.991815821428924,
+          "empty_vectors": 0
+        }
+      },
+      "neighbors": {
+        "company": [
+          {
+            "word": "automaker",
+            "cosine": 0.743785560131073
+          },
+          {
+            "word": "carmaker",
+            "cosine": 0.7382190227508545
+          },
+          {
+            "word": "lucent",
+            "cosine": 0.728119432926178
+          },
+          {
+            "word": "alcatel",
+            "cosine": 0.7262594699859619
+          },
+          {
+            "word": "carrefour",
+            "cosine": 0.7233204245567322
+          },
+          {
+            "word": "telco",
+            "cosine": 0.7204904556274414
+          }
+        ],
+        "market": [
+          {
+            "word": "markets",
+            "cosine": 0.7624567151069641
+          },
+          {
+            "word": "economy",
+            "cosine": 0.7322543859481812
+          },
+          {
+            "word": "stocks",
+            "cosine": 0.6916807889938354
+          },
+          {
+            "word": "equities",
+            "cosine": 0.6788269877433777
+          },
+          {
+            "word": "mortgage",
+            "cosine": 0.675376296043396
+          },
+          {
+            "word": "prices",
+            "cosine": 0.6729348301887512
+          }
+        ],
+        "insurance": [
+          {
+            "word": "health",
+            "cosine": 0.771547257900238
+          },
+          {
+            "word": "marketplaces",
+            "cosine": 0.7711157202720642
+          },
+          {
+            "word": "marketplace",
+            "cosine": 0.7538848519325256
+          },
+          {
+            "word": "coverage",
+            "cosine": 0.7518718242645264
+          },
+          {
+            "word": "exchanges",
+            "cosine": 0.7410297989845276
+          },
+          {
+            "word": "medicaid",
+            "cosine": 0.7337623834609985
+          }
+        ],
+        "government": [
+          {
+            "word": "shutdown",
+            "cosine": 0.7597408890724182
+          },
+          {
+            "word": "federal",
+            "cosine": 0.7491135001182556
+          },
+          {
+            "word": "economy",
+            "cosine": 0.7301071286201477
+          },
+          {
+            "word": "governments",
+            "cosine": 0.7167270183563232
+          },
+          {
+            "word": "brinkmanship",
+            "cosine": 0.7121926546096802
+          },
+          {
+            "word": "debt",
+            "cosine": 0.707695722579956
+          }
+        ],
+        "football": [
+          {
+            "word": "basketball",
+            "cosine": 0.7312960624694824
+          },
+          {
+            "word": "soccer",
+            "cosine": 0.7214673161506653
+          },
+          {
+            "word": "rugby",
+            "cosine": 0.6740108728408813
+          },
+          {
+            "word": "college",
+            "cosine": 0.6633567810058594
+          },
+          {
+            "word": "belhaven",
+            "cosine": 0.6612653732299805
+          },
+          {
+            "word": "intercollegiate",
+            "cosine": 0.6558052897453308
+          }
+        ],
+        "team": [
+          {
+            "word": "squad",
+            "cosine": 0.6884205341339111
+          },
+          {
+            "word": "teams",
+            "cosine": 0.6466951370239258
+          },
+          {
+            "word": "league",
+            "cosine": 0.6292656660079956
+          },
+          {
+            "word": "mindgames",
+            "cosine": 0.626495897769928
+          },
+          {
+            "word": "game",
+            "cosine": 0.626442551612854
+          },
+          {
+            "word": "mantra",
+            "cosine": 0.5998185873031616
+          }
+        ]
+      },
+      "seconds": 133.16873269999633
+    }
+  },
+  "selected_model": "skipgram",
+  "seconds": 183.64856619999046
+}

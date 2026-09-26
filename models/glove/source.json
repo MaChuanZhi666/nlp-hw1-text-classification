@@ -1,0 +1,7 @@
+{
+  "url": "https://downloads.cs.stanford.edu/nlp/data/glove.6B.zip",
+  "member": "glove.6B.100d.txt",
+  "bytes": 347116733,
+  "sha256": "95dde4dfd627ab26608d33e76d1195ec059734bd29089ea52cadb08d07c64544",
+  "zip_crc32": 441848486
+}

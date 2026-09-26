@@ -1,0 +1,192 @@
+{
+  "provenance": {
+    "nyt.csv": "de12ebe7f41316b798896bf975da840e2998f82393328d375fe5456a14e9eb2d",
+    "t1_results/splits.csv": "4de67b1b482685379c1836ec32c5947ff3e813213473a7a81ee6a44a9d72a281"
+  },
+  "classes": [
+    "business",
+    "politics",
+    "sports"
+  ],
+  "config": {
+    "epochs": 3,
+    "learning_rate": 2e-05,
+    "weight_decay": 0.01,
+    "warmup_ratio": 0.1,
+    "max_length": 512,
+    "batch_size": 16,
+    "gradient_accumulation": 2,
+    "eval_batch_size": 32,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "long_document": "head 255 + [SEP] + tail 254 with [CLS]/final [SEP]",
+    "selection": "highest validation macro_f1, earlier epoch on tie",
+    "class_weights": null
+  },
+  "source": {
+    "repo_id": "google-bert/bert-base-uncased",
+    "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+    "url": "https://huggingface.co/google-bert/bert-base-uncased"
+  },
+  "versions": {
+    "python": "3.8.10",
+    "torch": "2.1.2+cu121",
+    "transformers": "4.46.3"
+  },
+  "hardware": {
+    "gpu": "NVIDIA RTX A6000",
+    "cuda": "12.1",
+    "mixed_precision": "torch.bfloat16"
+  },
+  "parameters": 109484547,
+  "tokenization": {
+    "train": {
+      "n": 9157,
+      "mean_wordpieces": 833.7859560991591,
+      "truncated_n": 7400,
+      "truncated_fraction": 0.8081249317462051,
+      "token_retained_fraction": 0.5657370590982711,
+      "by_class": {
+        "business": {
+          "n": 1134,
+          "truncated_n": 961
+        },
+        "politics": {
+          "n": 1146,
+          "truncated_n": 1052
+        },
+        "sports": {
+          "n": 6877,
+          "truncated_n": 5387
+        }
+      }
+    },
+    "valid": {
+      "n": 1145,
+      "mean_wordpieces": 824.95807860262,
+      "truncated_n": 927,
+      "truncated_fraction": 0.8096069868995633,
+      "token_retained_fraction": 0.5692156383227625,
+      "by_class": {
+        "business": {
+          "n": 141,
+          "truncated_n": 119
+        },
+        "politics": {
+          "n": 144,
+          "truncated_n": 138
+        },
+        "sports": {
+          "n": 860,
+          "truncated_n": 670
+        }
+      }
+    },
+    "test": {
+      "n": 1145,
+      "mean_wordpieces": 826.8445414847162,
+      "truncated_n": 932,
+      "truncated_fraction": 0.8139737991266376,
+      "token_retained_fraction": 0.5704171274598965,
+      "by_class": {
+        "business": {
+          "n": 142,
+          "truncated_n": 121
+        },
+        "politics": {
+          "n": 143,
+          "truncated_n": 133
+        },
+        "sports": {
+          "n": 860,
+          "truncated_n": 678
+        }
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.25899932867993536,
+      "validation_loss": 0.0349970321998602,
+      "accuracy": 0.9868995633187773,
+      "macro_f1": 0.9668638650890794,
+      "seconds": 74.03927234746516
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.030430951544938595,
+      "validation_loss": 0.03671266480753662,
+      "accuracy": 0.9860262008733625,
+      "macro_f1": 0.966303078031916,
+      "seconds": 81.16181492805481
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.012445191127895518,
+      "validation_loss": 0.038664202293987066,
+      "accuracy": 0.9877729257641922,
+      "macro_f1": 0.9682731176810377,
+      "seconds": 82.96682282164693
+    }
+  ],
+  "selected_epoch": 3,
+  "test": {
+    "accuracy": 0.9868995633187773,
+    "macro_f1": 0.9698415559869554,
+    "report": {
+      "business": {
+        "precision": 0.9924242424242424,
+        "recall": 0.9225352112676056,
+        "f1-score": 0.9562043795620437,
+        "support": 142.0
+      },
+      "politics": {
+        "precision": 0.922077922077922,
+        "recall": 0.993006993006993,
+        "f1-score": 0.9562289562289562,
+        "support": 143.0
+      },
+      "sports": {
+        "precision": 0.9976717112922002,
+        "recall": 0.9965116279069768,
+        "f1-score": 0.9970913321698662,
+        "support": 860.0
+      },
+      "accuracy": 0.9868995633187773,
+      "macro avg": {
+        "precision": 0.9707246252647882,
+        "recall": 0.9706846107271918,
+        "f1-score": 0.9698415559869554,
+        "support": 1145.0
+      },
+      "weighted avg": {
+        "precision": 0.9875799624390196,
+        "recall": 0.9868995633187773,
+        "f1-score": 0.9869172998293763,
+        "support": 1145.0
+      }
+    },
+    "confusion": [
+      [
+        131,
+        9,
+        2
+      ],
+      [
+        1,
+        142,
+        0
+      ],
+      [
+        0,
+        3,
+        857
+      ]
+    ],
+    "errors": 15,
+    "loss": 0.04933106035149685
+  },
+  "seconds": 273.6489232890308,
+  "peak_gpu_memory_mb": 6302.6015625
+}

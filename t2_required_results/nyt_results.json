@@ -1,0 +1,320 @@
+{
+  "provenance": {
+    "nyt.csv": "de12ebe7f41316b798896bf975da840e2998f82393328d375fe5456a14e9eb2d",
+    "t1_results/splits.csv": "4de67b1b482685379c1836ec32c5947ff3e813213473a7a81ee6a44a9d72a281"
+  },
+  "source": {
+    "source": "NYT training partition only; reuse verified t2_experiment.py Skip-gram vectors",
+    "documents": 9157,
+    "training": {
+      "vector_size": 100,
+      "sg": 1,
+      "window": 5,
+      "min_count": 2,
+      "negative": 5,
+      "hs": 0,
+      "sample": 0.001,
+      "epochs": 10,
+      "workers": 1,
+      "seed": 42
+    },
+    "embedding_sha256": "5ee488b4986e2585647cfc6dd37f36357e73f504296794a9753c43a12c08407b"
+  },
+  "vocabulary": 43337,
+  "vector_size": 100,
+  "coverage": {
+    "train": {
+      "known": 5706431,
+      "total": 5724041,
+      "token_coverage": 0.9969235021202678,
+      "empty_vectors": 0
+    },
+    "valid": {
+      "known": 701884,
+      "total": 707311,
+      "token_coverage": 0.9923272789480158,
+      "empty_vectors": 0
+    },
+    "test": {
+      "known": 703248,
+      "total": 709051,
+      "token_coverage": 0.991815821428924,
+      "empty_vectors": 0
+    }
+  },
+  "C_grid": [
+    0.01,
+    0.1,
+    1,
+    10,
+    100,
+    1000
+  ],
+  "primary": "raw_mean",
+  "versions": {
+    "python": "3.13.5",
+    "gensim": "4.4.0",
+    "sklearn": "1.8.0"
+  },
+  "neighbors": {
+    "market": [
+      [
+        "markets",
+        0.7624567151069641
+      ],
+      [
+        "economy",
+        0.7322543859481812
+      ],
+      [
+        "stocks",
+        0.6916807889938354
+      ],
+      [
+        "equities",
+        0.6788269877433777
+      ],
+      [
+        "mortgage",
+        0.675376296043396
+      ]
+    ],
+    "government": [
+      [
+        "shutdown",
+        0.7597408890724182
+      ],
+      [
+        "federal",
+        0.7491135001182556
+      ],
+      [
+        "economy",
+        0.7301071286201477
+      ],
+      [
+        "governments",
+        0.7167270183563232
+      ],
+      [
+        "brinkmanship",
+        0.7121926546096802
+      ]
+    ],
+    "football": [
+      [
+        "basketball",
+        0.7312960624694824
+      ],
+      [
+        "soccer",
+        0.7214673161506653
+      ],
+      [
+        "rugby",
+        0.6740108728408813
+      ],
+      [
+        "college",
+        0.6633567810058594
+      ],
+      [
+        "belhaven",
+        0.6612653732299805
+      ]
+    ]
+  },
+  "models": {
+    "raw_mean": {
+      "C": 100,
+      "validation": [
+        {
+          "C": 0.01,
+          "accuracy": 0.8061135371179039,
+          "macro_f1": 0.524524159560516
+        },
+        {
+          "C": 0.1,
+          "accuracy": 0.9519650655021834,
+          "macro_f1": 0.901883305209148
+        },
+        {
+          "C": 1,
+          "accuracy": 0.97117903930131,
+          "macro_f1": 0.9390723649895687
+        },
+        {
+          "C": 10,
+          "accuracy": 0.9868995633187773,
+          "macro_f1": 0.9696774762131669
+        },
+        {
+          "C": 100,
+          "accuracy": 0.988646288209607,
+          "macro_f1": 0.9715335853667851
+        },
+        {
+          "C": 1000,
+          "accuracy": 0.9877729257641922,
+          "macro_f1": 0.9691970550482195
+        }
+      ],
+      "selected_validation": {
+        "C": 100,
+        "accuracy": 0.988646288209607,
+        "macro_f1": 0.9715335853667851
+      },
+      "test": {
+        "accuracy": 0.9834061135371179,
+        "macro_f1": 0.9603677400226905,
+        "report": {
+          "business": {
+            "precision": 0.9701492537313433,
+            "recall": 0.9154929577464789,
+            "f1-score": 0.9420289855072463,
+            "support": 142.0
+          },
+          "politics": {
+            "precision": 0.92,
+            "recall": 0.965034965034965,
+            "f1-score": 0.9419795221843004,
+            "support": 143.0
+          },
+          "sports": {
+            "precision": 0.9965156794425087,
+            "recall": 0.9976744186046511,
+            "f1-score": 0.9970947123765252,
+            "support": 860.0
+          },
+          "accuracy": 0.9834061135371179,
+          "macro avg": {
+            "precision": 0.962221644391284,
+            "recall": 0.9594007804620318,
+            "f1-score": 0.9603677400226905,
+            "support": 1145.0
+          },
+          "weighted avg": {
+            "precision": 0.9836896754152037,
+            "recall": 0.9834061135371179,
+            "f1-score": 0.9833822185661096,
+            "support": 1145.0
+          }
+        },
+        "confusion": [
+          [
+            130,
+            10,
+            2
+          ],
+          [
+            4,
+            138,
+            1
+          ],
+          [
+            0,
+            2,
+            858
+          ]
+        ],
+        "errors": 19
+      }
+    },
+    "l2_mean": {
+      "C": 1000,
+      "validation": [
+        {
+          "C": 0.01,
+          "accuracy": 0.7510917030567685,
+          "macro_f1": 0.28595178719867
+        },
+        {
+          "C": 0.1,
+          "accuracy": 0.9344978165938864,
+          "macro_f1": 0.8706548929599279
+        },
+        {
+          "C": 1,
+          "accuracy": 0.965938864628821,
+          "macro_f1": 0.9281157627687837
+        },
+        {
+          "C": 10,
+          "accuracy": 0.9851528384279477,
+          "macro_f1": 0.9658608040877162
+        },
+        {
+          "C": 100,
+          "accuracy": 0.9895196506550218,
+          "macro_f1": 0.9738763393639972
+        },
+        {
+          "C": 1000,
+          "accuracy": 0.9903930131004367,
+          "macro_f1": 0.976206470312759
+        }
+      ],
+      "selected_validation": {
+        "C": 1000,
+        "accuracy": 0.9903930131004367,
+        "macro_f1": 0.976206470312759
+      },
+      "test": {
+        "accuracy": 0.9834061135371179,
+        "macro_f1": 0.9604330840704502,
+        "report": {
+          "business": {
+            "precision": 0.9703703703703703,
+            "recall": 0.9225352112676056,
+            "f1-score": 0.9458483754512635,
+            "support": 142.0
+          },
+          "politics": {
+            "precision": 0.9194630872483222,
+            "recall": 0.958041958041958,
+            "f1-score": 0.9383561643835616,
+            "support": 143.0
+          },
+          "sports": {
+            "precision": 0.9965156794425087,
+            "recall": 0.9976744186046511,
+            "f1-score": 0.9970947123765252,
+            "support": 860.0
+          },
+          "accuracy": 0.9834061135371179,
+          "macro avg": {
+            "precision": 0.9621163790204005,
+            "recall": 0.959417195971405,
+            "f1-score": 0.9604330840704502,
+            "support": 1145.0
+          },
+          "weighted avg": {
+            "precision": 0.9836500422617119,
+            "recall": 0.9834061135371179,
+            "f1-score": 0.9834033654713891,
+            "support": 1145.0
+          }
+        },
+        "confusion": [
+          [
+            131,
+            10,
+            1
+          ],
+          [
+            4,
+            137,
+            2
+          ],
+          [
+            0,
+            2,
+            858
+          ]
+        ],
+        "errors": 19
+      }
+    }
+  },
+  "seconds": 8.281464000000142
+}
