@@ -3,6 +3,7 @@
 本仓库包含实验报告、完整代码、课程数据、实验结果与运行说明。**老师可直接打开下方PDF报告、源码和结果文件查看，无需运行程序。后面的运行步骤仅供需要复现实验时使用。**
 
 - **实验报告：[PDF（19页）](NLP_HW1_2411788_report.pdf)**
+- **原始数据：[AG CSV](ag.csv) · [NYT CSV](nyt.csv)**
 - **可编辑报告：[LaTeX源码](latex_report_revised/main.tex)**
 - **实验结果：[统一逐样本预测](required_analysis/all_predictions.csv)**
 - **复现方法：见下方环境和运行步骤。**
@@ -16,7 +17,9 @@
 
 ## 目录约定
 
-数据 `nyt.csv` 与 `ag.csv` 位于根目录；`t1_results/splits.csv` 是所有方法共用的划分清单。row_id是原CSV从0开始的数据记录索引。NYT先去除72条完全重复记录，再seed=42分层随机划分为9157/1145/1145；原始文件未改动。
+原始数据 `nyt.csv` 与 `ag.csv` 均直接保存在仓库根目录，无需解压或运行恢复程序。**老师查看报告和结果无需执行代码；后面的运行步骤仅供复现实验时使用。**
+
+`t1_results/splits.csv` 是所有方法共用的划分清单。row_id是原CSV从0开始的数据记录索引。NYT先去除72条完全重复记录，再seed=42分层随机划分为9157/1145/1145；原始文件未改动。
 
 `latex_report_revised/main.tex` 可独立编辑；figures子目录必须保留。选择XeLaTeX并编译两次，Overleaf可直接上传该目录。封面已填写姓名与学号。
 
