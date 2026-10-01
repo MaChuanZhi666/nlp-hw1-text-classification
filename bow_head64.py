@@ -19,9 +19,10 @@ for s,frame in f.items():
 v=CountVectorizer();x={'train':v.fit_transform(texts['train'])}
 for s in ['valid','test']:x[s]=v.transform(texts[s])
 trials=[];clfs=[]
-for c in [.01,.1,1]:
+for c in [.01,.1,1,10,100,1000]:
     clf=OneVsRestClassifier(LogisticRegression(C=c,solver='liblinear',max_iter=2000,random_state=42)).fit(x['train'],f['train'].label)
     trials.append({'C':c,**scores(f['valid'].label,clf.predict(x['valid']))});clfs.append(clf)
+    print('validation',trials[-1],flush=True)
 i=max(range(len(trials)),key=lambda i:(trials[i]['macro_f1'],-trials[i]['C']));clf=clfs[i]
 r={'provenance':provenance(),'max_length':64,'vocabulary':len(v.vocabulary_),'C':trials[i]['C'],'validation':trials,
    'selected_validation':trials[i],'test':evaluate(f['test'],clf.predict(x['test']),clf.predict_proba(x['test']),out,'head64')}

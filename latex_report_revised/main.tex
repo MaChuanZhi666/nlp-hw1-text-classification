@@ -33,13 +33,13 @@ AG News 与 NYT 训练的 Word2Vec，以及输入长度为64、微调3轮的 BER
 实验不仅报告 Accuracy 与 Macro-F1，也从类别混淆、语料覆盖、正则化、
 逐样本错误与输入预算对照解释性能差异。
 全文计数词袋的测试 Macro-F1 为96.79\%，规定的 BERT-64 为93.95\%；
-而仅使用相同开头内容的计数词袋为91.33\%。
+而仅使用相同开头内容的计数词袋为91.47\%。
 这一结果提示：表示能力与可见文本范围共同影响分类效果，不能仅凭模型规模判定优劣。
 补充实验与规定实验明确区分，历史512长度结果不替代规定结果。
 \end{abstract}
 \noindent\textbf{关键词：}新闻分类；词袋模型；逻辑回归；Word2Vec；BERT；误差分析
 \tableofcontents
-\clearpage\section{任务、数据与实验设计}
+\Needspace{8\baselineskip}\section{任务、数据与实验设计}
 \subsection{研究问题与要求边界}
 本实验研究：新闻主题分类中，显式词项统计、平均词向量和预训练上下文表示分别带来什么收益与限制？比较重点不仅是总体准确率，也包括少数类别表现、数据来源、输入范围及错误原因。依据课程《作业一要求》，T1为30分、T2为50分、T3为20分；因此将GloVe、AG News词向量与NYT词向量三组均作为正式实验，而不把CBOW与Skip-gram两种架构误当作T2要求的三组来源。
 
@@ -94,7 +94,7 @@ s_k(d)=\boldsymbol w_k^\top\boldsymbol x_d+b_k,\qquad
 
 较大C代表较弱正则化。词袋max\_\allowbreak{}iter=2000，新增T2与TF-IDF为5000，增大上限只用于保证求解收敛。对不均衡类别不加权是保持基线一致的选择，不代表类别加权无价值。
 
-\clearpage\section{Task 1：词袋表示及可解释性}
+\Needspace{8\baselineskip}\section{Task 1：词袋表示及可解释性}
 \subsection{Binary、计数与补充TF-IDF}
 训练集词表大小为60947。Binary只记录某词是否出现，Count保留原始出现次数，不除以文档长度。例如词表为[team, win, market]，文档“team team win”分别得到[1,1,0]与[2,1,0]。未在训练词表出现的测试词被忽略。
 
@@ -165,7 +165,7 @@ row\_\allowbreak{}id=4043实际为sports，讲女性退伍军人的高尔夫康�
 
 row\_\allowbreak{}id=4113真实business，讨论保险监管与既有保单。insurance出现14次却对politics相对business贡献+3.691，state贡献+2.198；companies、consumers分别贡献-1.161、-0.987。不能按日常常识把insurance自动视作商业词：本数据中保险与医疗政策报道高度相关，模型学到的是训练语境中的共现。完整词项贡献保存在T1结果JSON中，可回查而不是依赖主观猜测。
 
-\clearpage\section{Task 2：三种来源的100维词向量}
+\Needspace{8\baselineskip}\section{Task 2：三种来源的100维词向量}
 \subsection{三组实验的实现与来源}
 GloVe使用作业指定的glove.6B.100d.\allowbreak{}txt，共400000词、每词100维，来自斯坦福官方glove.6B.\allowbreak{}zip，而不是较新的2024版或其他维度。官方说明该6B模型由Wikipedia 2014与Gigaword 5语料训练。下载时只读取ZIP中的100d成员，并由ZIP CRC校验完整性；完整文件SHA-256保存在来源记录中。
 
@@ -260,7 +260,55 @@ NYT-W2V & 100 & 96.04 & 1000 & 96.04 \\
 \end{minipage}\end{center}
 两种处理各自用相同六点网格在验证集选C，测试差异均很小。NYT归一化后总错数仍为19，但类别分配稍变，所以F1并不完全相同。AG和NYT归一化版本选到网格上界1000，其最佳C尚未被上方候选包围，不能宣称已全局调优。归一化改变向量长度和有效正则尺度，所以差异不能仅解释为删除文档长度信息；平均向量范数还受语义一致性和词向量范数影响。
 
-\clearpage\section{Task 3：严格按64长度微调BERT}
+\subsection{三方错例：覆盖率之外的分类证据}
+从三组预测不一致的文章中，事后选取AG单独误判、NYT单独误判、GloVe单独误判各一例，避免只展示某一来源获胜的样本。这些案例用于解释，不能据此估计三组的总体胜率。完整原文、未知词、概率和逐词贡献保存在required\_\allowbreak{}analysis/\allowbreak{}t2\_\allowbreak{}case\_\allowbreak{}evidence.\allowbreak{}json。
+
+\begin{center}\begin{minipage}{\linewidth}\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.22}
+\captionof{table}{三方错例：覆盖率之外的分类证据}
+\begin{tabular}{>{\raggedright\arraybackslash}p{\dimexpr 0.22868\linewidth-2.28684\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.19283\linewidth-1.92829\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.19283\linewidth-1.92829\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.19283\linewidth-1.92829\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.19283\linewidth-1.92829\tabcolsep\relax}}
+\toprule
+\textbf{row\_\allowbreak{}id/\allowbreak{}真实类} & \textbf{来源} & \textbf{预测} & \textbf{覆盖率(\%)} & \textbf{类别分差} \\
+\midrule
+2849/\allowbreak{}politics & glove & politics & 99.83 & -3.060 \\
+2849/\allowbreak{}politics & ag & business & 99.17 & +1.770 \\
+2849/\allowbreak{}politics & nyt & politics & 99.50 & -0.004 \\
+9704/\allowbreak{}business & glove & business & 99.89 & -1.295 \\
+9704/\allowbreak{}business & ag & business & 96.47 & -0.604 \\
+9704/\allowbreak{}business & nyt & sports & 97.83 & +3.530 \\
+11327/\allowbreak{}business & glove & sports & 100.00 & +0.588 \\
+11327/\allowbreak{}business & ag & business & 98.12 & -2.488 \\
+11327/\allowbreak{}business & nyt & business & 98.74 & -2.175 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\end{center}
+2849的分差为business减politics，另外两篇为sports减business；正值支持此处的错误类别。各模型分别训练，分差尺度不能跨模型解释为统一置信度。对固定平均词向量加线性分类器，可精确分解：
+
+\[
+s_a(d)-s_b(d)=(b_a-b_b)+\sum_{w\in V_d}\frac{c_d(w)}{n_d}(\boldsymbol w_a-\boldsymbol w_b)^\top\boldsymbol e(w).
+\]
+
+其中n\_\allowbreak{}d为已知token总数，V\_\allowbreak{}d为文档中已知词的集合，重复词由次数c\_\allowbreak{}d(w)计入。分析脚本检查“全部词贡献之和加截距”与实际类别分差一致（误差小于0.0001）。这能定位线性决策的数值来源，但不是删除该词后的因果效果：删除词还会改变平均分母。
+
+\subsubsection{案例2849：保险产品等级与公共政策混淆}
+文章介绍医保交易平台、联邦政府公布的保险计划与价格，真实为politics。AG判business，GloVe和NYT正确。三者覆盖率都超过99\%，AG仅缺失varieties、comanche、923、optima、064五个各出现一次的token。因此不能简单归因为大量政治词缺失。
+
+在AG模型中，gold出现6次，对business减politics的分差贡献+1.466；premium贡献+0.575，而federal贡献-0.062、government贡献-0.197。原文gold和silver指保险计划等级；固定词向量不会随当前语境改变，平均表示也不保留修饰关系。结合全部词与截距，AG最终分差为+1.770，落入business。这里不能断言gold被内部解释成贵金属，只能确认其数值贡献推向商业类。NYT的分差约-0.004，虽然正确，却非常接近边界，并非同域词向量在此例具有压倒性优势。
+
+\subsubsection{案例9704：体育题材服务于酒店营销}
+文章讲万豪借棒球电影推广会员计划，真实为business。GloVe与AG正确，NYT误判sports。AG覆盖率96.47\%，低于NYT的97.83\%，却分类正确，直接反驳“覆盖率更高就一定分类更好”。AG未知词包括facebook、screenings和multicultural；但核心品牌marriott在三组词表中都存在。
+
+marriott出现24次，在GloVe和AG中对sports减business分别贡献-2.135和-2.088，在NYT中仅为-0.177。NYT的robinson、baseball、league分别贡献+0.805、+0.708、+0.700；所有词与截距合计后分差为+3.530。问题不只是未知词，还涉及已知词向量与分类器共同形成的判别方向。由于三组LR也分别训练，不能把贡献差异全部归因于词向量本身，更不能由这篇反例推出同域训练普遍无效。
+
+\subsubsection{案例11327：冰球商品的关税报道}
+文章讨论加拿大取消体育用品进口关税及零售价格，真实为business。GloVe误判sports，AG与NYT正确。GloVe覆盖率100\%，没有未知词，说明该错误完全不能用OOV解释。hockey出现13次，对GloVe的sports减business贡献+3.524；tariffs和prices分别贡献-0.155和-0.401，最终分差仍为+0.588。
+
+AG与NYT中的hockey同样推向sports，贡献分别为+3.333和+3.002，但全篇其他词与截距共同使分差降为-2.488和-2.175，得到business。不能只取最大正贡献词就判断模型输出；平均表示加LR依赖的是整篇净证据。此例和9704共同显示，体育实体既可能是报道主旨，也可能只是商业活动的对象，平均池化难以显式区分这两种关系。
+
+三例说明：覆盖率衡量词是否可用，逐词贡献解释当前线性分类器怎样累计证据，二者都不能单独代表篇章理解能力。主结果中NYT的测试点估计最高，但AG与GloVe各自也有正确而NYT错误的样本，因此仍保留三来源差异区间跨零的结论。
+
+\Needspace{8\baselineskip}\section{Task 3：严格按64长度微调BERT}
 \subsection{模型、tokenization与训练设置}
 使用google-bert/\allowbreak{}bert-base-uncased的预训练权重，固定仓库revision；添加三分类头，对全部参数微调。模型共有109484547个参数。使用标准BERT序列分类结构：CLS位置经过pooler、dropout和线性分类头，不把平均词向量送入另一个LR。
 
@@ -313,7 +361,7 @@ test & 826.8 & 1145/\allowbreak{}1145 & 7.50 \\
 \end{minipage}\end{center}
 表中长度单位为正文WordPiece。测试集1145篇均超过可保留的62个正文WordPiece，保留token总量仅约7.50\%。这一数值不是“保留7.50\%的语义信息”：新闻导语往往浓缩核心内容，字符、词与信息量也不成比例。不能因为截断普遍发生，就证明每个错误都由截断导致。
 
-为减少输入范围的混杂，补充Count-head64：将同一BERT tokenizer产生的前62个正文WordPiece解码为文本，再用CountVectorizer与LR训练；训练、验证、测试都执行相同处理。它使用与原Count相同的三点C网格，仅在验证集选C。两种模型可见的原文范围相同，但后续分词表示、预训练资源与搜索空间并非完全相同，因此是输入预算对照，不是架构唯一变化的纯因果实验。
+为减少输入范围的混杂，补充Count-head64：将同一BERT tokenizer产生的前62个正文WordPiece解码为文本，再用CountVectorizer与LR训练；训练、验证、测试都执行相同处理。原三点网格的最优C=1位于上界；本次预先扩展到0.01、0.1、1、10、100、1000六点，只按验证Macro-F1选C，平分取较小值，选定后才计算测试指标。两种模型可见的原文范围相同，但后续分词表示、预训练资源与搜索空间并非完全相同，因此是输入预算对照，不是架构唯一变化的纯因果实验。
 
 \begin{center}\begin{minipage}{\linewidth}\small
 \setlength{\tabcolsep}{4pt}
@@ -324,17 +372,36 @@ test & 826.8 & 1145/\allowbreak{}1145 & 7.50 \\
 \textbf{配置} & \textbf{测试Acc} & \textbf{测试F1} & \textbf{错误数} \\
 \midrule
 Count & 98.69 & 96.79 & 15 \\
-Count-head64 & 95.72 & 91.33 & 49 \\
+Count-head64 & 95.81 & 91.47 & 48 \\
 BERT-64 & 97.12 & 93.95 & 33 \\
 BERT-512 & 98.69 & 96.98 & 15 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\end{center}
-BERT-64较短Count的Macro-F1高2.62个百分点，修正30条并新增14条错误，显示同输入范围下预训练表示有收益；它仍低于全文Count，说明后文主题证据有价值。但短Count选到C网格上界1，尚未充分调优，差值不能解释为BERT的绝对优势。
+\begin{center}\begin{minipage}{\linewidth}\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.22}
+\captionof{table}{截断审计与同输入范围对照}
+\begin{tabular}{>{\raggedright\arraybackslash}p{\dimexpr 0.33333\linewidth-2.00000\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.33333\linewidth-2.00000\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.33333\linewidth-2.00000\tabcolsep\relax}}
+\toprule
+\textbf{短Count的C} & \textbf{验证Acc} & \textbf{验证Macro-F1} \\
+\midrule
+0.01 & 90.66 & 80.88 \\
+0.1 & 94.67 & 89.12 \\
+1 & 95.46 & 90.41 \\
+10 & 95.63 & 90.74 \\
+100 & 95.46 & 90.35 \\
+1000 & 95.55 & 90.51 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\end{center}
+扩展网格选中C=10，其验证Macro-F1为90.74\%，高于C=1的90.41\%；继续增大至100和1000均未超过C=10，最优点已被两侧候选包围。测试Accuracy从95.72\%升至95.81\%，Macro-F1从91.33\%升至91.47\%，错误由49篇降为48篇。改善有限，但补足了原先网格边界的疑问；有限网格仍不等于连续参数的全局最优。
+
+BERT-64较更新后的短Count的Macro-F1高2.48个百分点，修正28条并新增13条错误，配对bootstrap的95\%区间约为[+0.24,+4.77]个百分点。这支持本次同输入范围下预训练方案的收益，且结论没有因扩大短Count搜索而反转。后续分词、预训练资源及模型结构仍不同，不能把差值解释为单一架构因素的因果效果。由于此次扩展发生在已查看原测试结果之后，仍属于探索性补充。
 
 历史BERT-512（头255、尾254个正文WordPiece，双片段）测试Macro-F1为96.98\%，高出3.03个百分点。但长度、位置与segment编码同时改变，这不是只改变长度的严格消融，也不能替代规定的64长度结果。
 
-\clearpage\section{综合比较与统计不确定性}
+\Needspace{8\baselineskip}\section{综合比较与统计不确定性}
 \subsection{六组规定实验的总结果}
 \begin{center}\begin{minipage}{\linewidth}\small
 \setlength{\tabcolsep}{4pt}
@@ -418,7 +485,7 @@ BERT-64在business与politics之间双向各错8篇，还各有4篇被判sports�
 \textbf{普通token长度} & \textbf{样本数} & \textbf{B/\allowbreak{}P/\allowbreak{}S} & \textbf{Count错误} & \textbf{BERT-64错误} & \textbf{短Count错误} \\
 \midrule
 0--199 & 86 & 1/\allowbreak{}4/\allowbreak{}81 & 0 & 0 & 0 \\
-200--499 & 270 & 32/\allowbreak{}22/\allowbreak{}216 & 1 & 7 & 8 \\
+200--499 & 270 & 32/\allowbreak{}22/\allowbreak{}216 & 1 & 7 & 7 \\
 500--999 & 730 & 99/\allowbreak{}106/\allowbreak{}525 & 11 & 22 & 31 \\
 1000及以上 & 59 & 10/\allowbreak{}11/\allowbreak{}38 & 3 & 4 & 10 \\
 \bottomrule
@@ -442,14 +509,14 @@ Count \ensuremath{\to} TF-IDF & 6/\allowbreak{}2 & +0.74 & [-0.43, +1.97] & 0.28
 AG-W2V \ensuremath{\to} NYT-W2V & 10/\allowbreak{}5 & +1.05 & [-0.39, +2.60] & 0.3018 \\
 GloVe \ensuremath{\to} NYT-W2V & 9/\allowbreak{}6 & +0.46 & [-0.83, +1.80] & 0.6072 \\
 Count \ensuremath{\to} BERT-64 & 8/\allowbreak{}26 & -2.84 & [-5.06, -0.65] & 0.0029 \\
-Count-head64 \ensuremath{\to} BERT-64 & 30/\allowbreak{}14 & +2.62 & [+0.37, +4.97] & 0.0226 \\
+Count-head64 \ensuremath{\to} BERT-64 & 28/\allowbreak{}13 & +2.48 & [+0.24, +4.77] & 0.0275 \\
 BERT-64 \ensuremath{\to} BERT-512 & 24/\allowbreak{}6 & +3.03 & [+1.14, +5.03] & 0.0014 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\end{center}
 Binary/\allowbreak{}Count、Count/\allowbreak{}TF-IDF以及T2来源之间的区间均跨零，不支持把小幅排名差距说成稳定提升。Count到BERT-64的Macro-F1差区间为负，短Count到BERT-64为正，和输入预算分析一致。但这些比较含事后选择且未做多重比较校正，应视为探索性证据；不能推广为所有新闻数据或任意训练种子下的定论。
 
-\clearpage\section{错误案例：从可见证据到解释}
+\Needspace{8\baselineskip}\section{错误案例：从可见证据到解释}
 \subsection{案例选择和证据边界}
 以下案例按错误类型人工选取，旨在解释机制，不是随机样本，也不能据此估计某类原因在全部错误中的占比。每个row\_\allowbreak{}id可在原始数据、逐样本预测和BERT输入审计中定位。模型原始分数可检查，BERT“关注了哪个词”没有通过归因实验验证，因此只讨论可见文本与预测的相容解释，不将阅读者的理解冒充模型内部推理。
 
@@ -495,7 +562,7 @@ Binary/\allowbreak{}Count、Count/\allowbreak{}TF-IDF以及T2来源之间的区�
 \subsection{高置信错误与可靠性}
 BERT-64的33条错误中，24条最大softmax概率不低于0.9。高置信并不等于正确；类别判定不确定性还包含主题边界、训练偏差与输入截断，softmax并未充分表达这些因素。本报告没有做独立校准集上的温度缩放或绘制完整可靠性曲线，因此只报告该可核查现象，不声称量化了全局校准误差。
 
-\clearpage\section{结论、局限与复现}
+\Needspace{8\baselineskip}\section{结论、局限与复现}
 \subsection{回答研究问题}
 第一，显式词统计在本数据上很强。主题词对标签有直接判别力，全文Count在规定实验中验证Macro-F1最高；Binary与Count的测试差距很小，不能根据1条错误差认定一种普遍更优。
 
@@ -513,13 +580,13 @@ GloVe与BERT来自大规模公开预训练，其训练语料是否含这些新�
 如果继续研究，应预先固定新实验计划：在不改变正式64长度结果的前提下，比较头部、尾部或分段聚合；在独立验证集探索停用词处理、加权平均和类别权重；用多个种子报告均值与标准差；对栏目模板移除前后进行对照。上述项目尚未完成，不作为本报告已有成果。
 
 \subsection{文件与复现入口}
-完整复现说明见提交包README。原始nyt.\allowbreak{}csv与ag.\allowbreak{}csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
+仓库：\href{https://github.com/MaChuanZhi666/nlp-hw1-text-classification}{MaChuanZhi666/\allowbreak{}nlp-hw1-text-classification}。老师可直接查看PDF与已保存结果，无需运行程序。完整复现说明见提交包README。原始nyt.\allowbreak{}csv与ag.\allowbreak{}csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
 
 \begin{center}\begin{minipage}{\linewidth}\small
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.22}
 \captionof{table}{文件与复现入口}
-\begin{tabular}{>{\raggedright\arraybackslash}p{\dimexpr 0.25806\linewidth-1.54838\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.35027\linewidth-2.10163\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.39167\linewidth-2.35000\tabcolsep\relax}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{\dimexpr 0.23882\linewidth-1.43295\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.36247\linewidth-2.17481\tabcolsep\relax}>{\raggedright\arraybackslash}p{\dimexpr 0.39871\linewidth-2.39224\tabcolsep\relax}}
 \toprule
 \textbf{步骤} & \textbf{脚本/\allowbreak{}文件} & \textbf{输出} \\
 \midrule
@@ -531,6 +598,7 @@ BERT准备 & prepare\_\allowbreak{}bert.\allowbreak{}py & models/\allowbreak{}be
 规定T3 & t3\_\allowbreak{}required.\allowbreak{}py & t3\_\allowbreak{}64\_\allowbreak{}results \\
 补充实验 & t1\_\allowbreak{}tfidf.\allowbreak{}py、bow\_\allowbreak{}head64.\allowbreak{}py & 对应results目录 \\
 重算与绘图 & analyze\_\allowbreak{}required.\allowbreak{}py & required\_\allowbreak{}analysis \\
+T2三方证据 & analyze\_\allowbreak{}t2\_\allowbreak{}cases.\allowbreak{}py & required\_\allowbreak{}analysis/\allowbreak{}t2\_\allowbreak{}case\_\allowbreak{}evidence.\allowbreak{}json \\
 LaTeX报告 & build\_\allowbreak{}required\_\allowbreak{}report.\allowbreak{}py & latex\_\allowbreak{}report\_\allowbreak{}revised/\allowbreak{}main.\allowbreak{}tex \\
 \bottomrule
 \end{tabular}
@@ -546,6 +614,7 @@ python t3_required.py --batch-size 16 --gradient-accumulation 2 --eval-batch-siz
 python t1_tfidf.py
 python bow_head64.py
 python analyze_required.py
+python analyze_t2_cases.py
 python build_required_report.py
 \end{Verbatim}
 \end{minipage}\par

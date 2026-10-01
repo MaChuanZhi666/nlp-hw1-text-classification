@@ -2,7 +2,7 @@
 
 本仓库包含实验报告、完整代码、课程数据、实验结果与运行说明。**老师可直接打开下方PDF报告、源码和结果文件查看，无需运行程序。后面的运行步骤仅供需要复现实验时使用。**
 
-- **实验报告：[PDF（19页）](NLP_HW1_2411788_report.pdf)**
+- **实验报告：[PDF](NLP_HW1_2411788_report.pdf)**
 - **原始数据：[AG CSV](ag.csv) · [NYT CSV](nyt.csv)**
 - **可编辑报告：[LaTeX源码](latex_report_revised/main.tex)**
 - **实验结果：[统一逐样本预测](required_analysis/all_predictions.csv)**
@@ -14,6 +14,13 @@
 - T2：glove.6B 100d、AG News训练100d Word2Vec、NYT训练集训练100d Word2Vec，三组均以原始平均向量+LR作为主结果。
 - T3：google-bert/bert-base-uncased，max_length=64，完整训练3轮。历史512实验只用于补充对照。
 - 六组规定实验均报告Accuracy和Macro-F1；另有混淆矩阵、逐类指标、超参数选择、输入审计、错例、配对bootstrap与局限分析。
+
+## 本次补强（2026-10-01）
+
+- 短Count按验证集从六点网格选择C=10；测试Accuracy 95.81%、Macro-F1 91.47%，错误48篇。BERT同输入范围的Macro-F1优势为2.48个百分点。
+- 新增三方错例分析，分别覆盖AG、NYT、GloVe独有错误，包含实际未知词和可校验的逐词线性贡献。
+- [三方案例与解释](required_analysis/t2_cases.md)可直接阅读；[完整证据](required_analysis/t2_case_evidence.json)包含原文与全部贡献。
+- 补充分析属于事后探索，不改变规定任务的结果或划分。
 
 ## 目录约定
 
@@ -69,6 +76,7 @@ python t1_tfidf.py
 python bow_head64.py
 python t3_experiment.py --batch-size 16 --gradient-accumulation 2 --eval-batch-size 32
 python analyze_required.py
+python analyze_t2_cases.py
 python build_required_report.py
 ```
 

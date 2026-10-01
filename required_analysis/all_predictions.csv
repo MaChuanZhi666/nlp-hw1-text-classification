@@ -650,7 +650,7 @@ row_id,label,Binary,Count,TF-IDF,GloVe,AG-W2V,NYT-W2V,BERT-64,Count-head64,BERT-
 6797,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 5607,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 3645,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
-712,politics,politics,politics,politics,politics,politics,politics,politics,sports,politics
+712,politics,politics,politics,politics,politics,politics,politics,politics,politics,politics
 8254,sports,sports,sports,sports,sports,sports,sports,politics,sports,sports
 8940,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 11515,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
@@ -733,7 +733,7 @@ row_id,label,Binary,Count,TF-IDF,GloVe,AG-W2V,NYT-W2V,BERT-64,Count-head64,BERT-
 3167,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 2341,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 9415,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
-2144,sports,sports,sports,sports,sports,sports,sports,business,sports,sports
+2144,sports,sports,sports,sports,sports,sports,sports,business,business,sports
 3615,sports,politics,sports,sports,politics,sports,sports,sports,politics,sports
 8097,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 6176,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
@@ -801,7 +801,7 @@ row_id,label,Binary,Count,TF-IDF,GloVe,AG-W2V,NYT-W2V,BERT-64,Count-head64,BERT-
 3445,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 4105,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 4451,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
-9311,sports,sports,sports,sports,sports,sports,sports,sports,politics,sports
+9311,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 783,sports,sports,sports,sports,sports,sports,sports,sports,sports,sports
 5953,business,business,business,business,business,business,business,business,business,business
 1709,business,business,business,business,business,business,business,business,sports,business

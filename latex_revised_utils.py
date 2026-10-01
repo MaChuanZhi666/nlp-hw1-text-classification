@@ -104,7 +104,7 @@ def convert(path,index):
             text=re.sub(r'^\d+(?:\.\d+)*\.?\s*','',text)
             if level==1:
                 title=text
-                out.append(r'\clearpage\section{'+esc(title)+'}')
+                out.append(r'\Needspace{8\baselineskip}\section{'+esc(title)+'}')
             else:
                 context=text
                 cmd='subsection'if level==2 else 'subsubsection'
@@ -165,7 +165,7 @@ AG News 与 NYT 训练的 Word2Vec，以及输入长度为64、微调3轮的 BER
 实验不仅报告 Accuracy 与 Macro-F1，也从类别混淆、语料覆盖、正则化、
 逐样本错误与输入预算对照解释性能差异。
 全文计数词袋的测试 Macro-F1 为96.79\%，规定的 BERT-64 为93.95\%；
-而仅使用相同开头内容的计数词袋为91.33\%。
+而仅使用相同开头内容的计数词袋为91.47\%。
 这一结果提示：表示能力与可见文本范围共同影响分类效果，不能仅凭模型规模判定优劣。
 补充实验与规定实验明确区分，历史512长度结果不替代规定结果。
 \end{abstract}

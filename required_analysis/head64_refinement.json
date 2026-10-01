@@ -1,0 +1,137 @@
+{
+  "reason": "Expand validation C grid beyond former upper boundary; post-hoc exploratory refinement. Test does not select C.",
+  "before": {
+    "C": 1,
+    "validation": {
+      "C": 1,
+      "accuracy": 0.9545851528384279,
+      "macro_f1": 0.9041432546933762
+    },
+    "test": {
+      "accuracy": 0.9572052401746725,
+      "macro_f1": 0.91327151466495,
+      "report": {
+        "business": {
+          "precision": 0.9224806201550387,
+          "recall": 0.8380281690140845,
+          "f1-score": 0.8782287822878229,
+          "support": 142.0
+        },
+        "politics": {
+          "precision": 0.8920863309352518,
+          "recall": 0.8671328671328671,
+          "f1-score": 0.8794326241134752,
+          "support": 143.0
+        },
+        "sports": {
+          "precision": 0.9726339794754846,
+          "recall": 0.9918604651162791,
+          "f1-score": 0.982153137593552,
+          "support": 860.0
+        },
+        "accuracy": 0.9572052401746725,
+        "macro avg": {
+          "precision": 0.9290669768552583,
+          "recall": 0.8990071670877436,
+          "f1-score": 0.91327151466495,
+          "support": 1145.0
+        },
+        "weighted avg": {
+          "precision": 0.9563544242224222,
+          "recall": 0.9572052401746725,
+          "f1-score": 0.9564358521079062,
+          "support": 1145.0
+        }
+      },
+      "confusion": [
+        [
+          119,
+          10,
+          13
+        ],
+        [
+          8,
+          124,
+          11
+        ],
+        [
+          2,
+          5,
+          853
+        ]
+      ],
+      "errors": 49
+    }
+  },
+  "after": {
+    "C": 10,
+    "validation": {
+      "C": 10,
+      "accuracy": 0.9563318777292577,
+      "macro_f1": 0.9073761272911164
+    },
+    "test": {
+      "accuracy": 0.9580786026200874,
+      "macro_f1": 0.9147479055680839,
+      "report": {
+        "business": {
+          "precision": 0.9153846153846154,
+          "recall": 0.8380281690140845,
+          "f1-score": 0.875,
+          "support": 142.0
+        },
+        "politics": {
+          "precision": 0.8992805755395683,
+          "recall": 0.8741258741258742,
+          "f1-score": 0.8865248226950354,
+          "support": 143.0
+        },
+        "sports": {
+          "precision": 0.973744292237443,
+          "recall": 0.9918604651162791,
+          "f1-score": 0.9827188940092166,
+          "support": 860.0
+        },
+        "accuracy": 0.9580786026200874,
+        "macro avg": {
+          "precision": 0.9294698277205423,
+          "recall": 0.901338169418746,
+          "f1-score": 0.9147479055680839,
+          "support": 1145.0
+        },
+        "weighted avg": {
+          "precision": 0.95720683756417,
+          "recall": 0.9580786026200874,
+          "f1-score": 0.9573461122212369,
+          "support": 1145.0
+        }
+      },
+      "confusion": [
+        [
+          119,
+          10,
+          13
+        ],
+        [
+          8,
+          125,
+          10
+        ],
+        [
+          3,
+          4,
+          853
+        ]
+      ],
+      "errors": 48
+    }
+  },
+  "C_grid": [
+    0.01,
+    0.1,
+    1,
+    10,
+    100,
+    1000
+  ]
+}

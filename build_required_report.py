@@ -8,6 +8,7 @@ def read(p):return json.loads((ROOT/p).read_text(encoding='utf-8'))
 a=read('required_analysis/analysis.json');m=a['models'];t1=read('t1_results/results.json')
 t2={s:read(f't2_required_results/{s}_results.json')for s in ['glove','ag','nyt']}
 b=read('t3_64_results/results.json');old=read('t3_results/results.json')
+head=read('bow_head64_results/results.json')
 def pct(x):return f'{100*x:.2f}'
 def table(headers,rows):return '\n| '+' | '.join(headers)+' |\n| '+' | '.join(['---']*len(headers))+' |\n'+'\n'.join('| '+' | '.join(map(str,row))+' |'for row in rows)+'\n'
 parts=[]
@@ -157,6 +158,40 @@ add(r'''三组均选择C=100，GloVe在100与1000上平分而取较小值。小C
 add(table(['来源','原平均C','原平均测试F1','L2后C','L2后测试F1'],[[n,t2[k]['models']['raw_mean']['C'],pct(t2[k]['models']['raw_mean']['test']['macro_f1']),t2[k]['models']['l2_mean']['C'],pct(t2[k]['models']['l2_mean']['test']['macro_f1'])]for n,k in [('GloVe','glove'),('AG-W2V','ag'),('NYT-W2V','nyt')]]))
 add(r'''两种处理各自用相同六点网格在验证集选C，测试差异均很小。NYT归一化后总错数仍为19，但类别分配稍变，所以F1并不完全相同。AG和NYT归一化版本选到网格上界1000，其最佳C尚未被上方候选包围，不能宣称已全局调优。归一化改变向量长度和有效正则尺度，所以差异不能仅解释为删除文档长度信息；平均向量范数还受语义一致性和词向量范数影响。
 ''')
+add(r'''## 三方错例：覆盖率之外的分类证据
+
+从三组预测不一致的文章中，事后选取AG单独误判、NYT单独误判、GloVe单独误判各一例，避免只展示某一来源获胜的样本。这些案例用于解释，不能据此估计三组的总体胜率。完整原文、未知词、概率和逐词贡献保存在required_analysis/t2_case_evidence.json。
+''')
+evidence=read('required_analysis/t2_case_evidence.json')['cases']
+add(table(['row_id/真实类','来源','预测','覆盖率(%)','类别分差'],[[i+'/'+c['label'],s,v['prediction'],pct(v['coverage']),f"{v['margin']:+.3f}"]for i,c in evidence.items()for s,v in c['sources'].items()]))
+add(r'''2849的分差为business减politics，另外两篇为sports减business；正值支持此处的错误类别。各模型分别训练，分差尺度不能跨模型解释为统一置信度。对固定平均词向量加线性分类器，可精确分解：
+
+```latex
+s_a(d)-s_b(d)=(b_a-b_b)+\sum_{w\in V_d}\frac{c_d(w)}{n_d}(\boldsymbol w_a-\boldsymbol w_b)^\top\boldsymbol e(w).
+```
+
+其中n_d为已知token总数，V_d为文档中已知词的集合，重复词由次数c_d(w)计入。分析脚本检查“全部词贡献之和加截距”与实际类别分差一致（误差小于0.0001）。这能定位线性决策的数值来源，但不是删除该词后的因果效果：删除词还会改变平均分母。
+
+### 案例2849：保险产品等级与公共政策混淆
+
+文章介绍医保交易平台、联邦政府公布的保险计划与价格，真实为politics。AG判business，GloVe和NYT正确。三者覆盖率都超过99%，AG仅缺失varieties、comanche、923、optima、064五个各出现一次的token。因此不能简单归因为大量政治词缺失。
+
+在AG模型中，gold出现6次，对business减politics的分差贡献+1.466；premium贡献+0.575，而federal贡献-0.062、government贡献-0.197。原文gold和silver指保险计划等级；固定词向量不会随当前语境改变，平均表示也不保留修饰关系。结合全部词与截距，AG最终分差为+1.770，落入business。这里不能断言gold被内部解释成贵金属，只能确认其数值贡献推向商业类。NYT的分差约-0.004，虽然正确，却非常接近边界，并非同域词向量在此例具有压倒性优势。
+
+### 案例9704：体育题材服务于酒店营销
+
+文章讲万豪借棒球电影推广会员计划，真实为business。GloVe与AG正确，NYT误判sports。AG覆盖率96.47%，低于NYT的97.83%，却分类正确，直接反驳“覆盖率更高就一定分类更好”。AG未知词包括facebook、screenings和multicultural；但核心品牌marriott在三组词表中都存在。
+
+marriott出现24次，在GloVe和AG中对sports减business分别贡献-2.135和-2.088，在NYT中仅为-0.177。NYT的robinson、baseball、league分别贡献+0.805、+0.708、+0.700；所有词与截距合计后分差为+3.530。问题不只是未知词，还涉及已知词向量与分类器共同形成的判别方向。由于三组LR也分别训练，不能把贡献差异全部归因于词向量本身，更不能由这篇反例推出同域训练普遍无效。
+
+### 案例11327：冰球商品的关税报道
+
+文章讨论加拿大取消体育用品进口关税及零售价格，真实为business。GloVe误判sports，AG与NYT正确。GloVe覆盖率100%，没有未知词，说明该错误完全不能用OOV解释。hockey出现13次，对GloVe的sports减business贡献+3.524；tariffs和prices分别贡献-0.155和-0.401，最终分差仍为+0.588。
+
+AG与NYT中的hockey同样推向sports，贡献分别为+3.333和+3.002，但全篇其他词与截距共同使分差降为-2.488和-2.175，得到business。不能只取最大正贡献词就判断模型输出；平均表示加LR依赖的是整篇净证据。此例和9704共同显示，体育实体既可能是报道主旨，也可能只是商业活动的对象，平均池化难以显式区分这两种关系。
+
+三例说明：覆盖率衡量词是否可用，逐词贡献解释当前线性分类器怎样累计证据，二者都不能单独代表篇章理解能力。主结果中NYT的测试点估计最高，但AG与GloVe各自也有正确而NYT错误的样本，因此仍保留三来源差异区间跨零的结论。
+''')
 add(r'''# Task 3：严格按64长度微调BERT
 
 ## 模型、tokenization与训练设置
@@ -182,10 +217,13 @@ add(f'''训练损失持续下降，但验证交叉熵在第2轮最低，第3轮�
 add(table(['集合','平均长度','截断篇数/总数','保留比例(%)'],[[s,f"{b['tokenization'][s]['mean_wordpieces']:.1f}",f"{b['tokenization'][s]['truncated_n']}/{b['tokenization'][s]['n']}",pct(b['tokenization'][s]['token_retained_fraction'])]for s in ['train','valid','test']]))
 add(r'''表中长度单位为正文WordPiece。测试集1145篇均超过可保留的62个正文WordPiece，保留token总量仅约7.50%。这一数值不是“保留7.50%的语义信息”：新闻导语往往浓缩核心内容，字符、词与信息量也不成比例。不能因为截断普遍发生，就证明每个错误都由截断导致。
 
-为减少输入范围的混杂，补充Count-head64：将同一BERT tokenizer产生的前62个正文WordPiece解码为文本，再用CountVectorizer与LR训练；训练、验证、测试都执行相同处理。它使用与原Count相同的三点C网格，仅在验证集选C。两种模型可见的原文范围相同，但后续分词表示、预训练资源与搜索空间并非完全相同，因此是输入预算对照，不是架构唯一变化的纯因果实验。
+为减少输入范围的混杂，补充Count-head64：将同一BERT tokenizer产生的前62个正文WordPiece解码为文本，再用CountVectorizer与LR训练；训练、验证、测试都执行相同处理。原三点网格的最优C=1位于上界；本次预先扩展到0.01、0.1、1、10、100、1000六点，只按验证Macro-F1选C，平分取较小值，选定后才计算测试指标。两种模型可见的原文范围相同，但后续分词表示、预训练资源与搜索空间并非完全相同，因此是输入预算对照，不是架构唯一变化的纯因果实验。
 ''')
 add(table(['配置','测试Acc','测试F1','错误数'],[[n,pct(m[n]['test']['accuracy']),pct(m[n]['test']['macro_f1']),m[n]['errors']]for n in ['Count','Count-head64','BERT-64','BERT-512']]))
-add(r'''BERT-64较短Count的Macro-F1高2.62个百分点，修正30条并新增14条错误，显示同输入范围下预训练表示有收益；它仍低于全文Count，说明后文主题证据有价值。但短Count选到C网格上界1，尚未充分调优，差值不能解释为BERT的绝对优势。
+add(table(['短Count的C','验证Acc','验证Macro-F1'],[[t['C'],pct(t['accuracy']),pct(t['macro_f1'])]for t in head['validation']]))
+add(r'''扩展网格选中C=10，其验证Macro-F1为90.74%，高于C=1的90.41%；继续增大至100和1000均未超过C=10，最优点已被两侧候选包围。测试Accuracy从95.72%升至95.81%，Macro-F1从91.33%升至91.47%，错误由49篇降为48篇。改善有限，但补足了原先网格边界的疑问；有限网格仍不等于连续参数的全局最优。
+
+BERT-64较更新后的短Count的Macro-F1高2.48个百分点，修正28条并新增13条错误，配对bootstrap的95%区间约为[+0.24,+4.77]个百分点。这支持本次同输入范围下预训练方案的收益，且结论没有因扩大短Count搜索而反转。后续分词、预训练资源及模型结构仍不同，不能把差值解释为单一架构因素的因果效果。由于此次扩展发生在已查看原测试结果之后，仍属于探索性补充。
 
 历史BERT-512（头255、尾254个正文WordPiece，双片段）测试Macro-F1为96.98%，高出3.03个百分点。但长度、位置与segment编码同时改变，这不是只改变长度的严格消融，也不能替代规定的64长度结果。
 ''')
@@ -282,12 +320,12 @@ GloVe与BERT来自大规模公开预训练，其训练语料是否含这些新�
 
 ## 文件与复现入口
 
-完整复现说明见提交包README。原始nyt.csv与ag.csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
+仓库：[MaChuanZhi666/nlp-hw1-text-classification](https://github.com/MaChuanZhi666/nlp-hw1-text-classification)。老师可直接查看PDF与已保存结果，无需运行程序。完整复现说明见提交包README。原始nyt.csv与ag.csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
 ''')
 add(table(['步骤','脚本/文件','输出'],[
 ['T1与划分','t1_experiment.py','t1_results'],['NYT词向量','t2_experiment.py','t2_results/skipgram.kv'],
 ['GloVe准备','prepare_glove.py','models/glove'],['规定T2','t2_required.py','t2_required_results'],['BERT准备','prepare_bert.py','models/bert-base-uncased'],
-['规定T3','t3_required.py','t3_64_results'],['补充实验','t1_tfidf.py、bow_head64.py','对应results目录'],['重算与绘图','analyze_required.py','required_analysis'],['LaTeX报告','build_required_report.py','latex_report_revised/main.tex']]))
+['规定T3','t3_required.py','t3_64_results'],['补充实验','t1_tfidf.py、bow_head64.py','对应results目录'],['重算与绘图','analyze_required.py','required_analysis'],['T2三方证据','analyze_t2_cases.py','required_analysis/t2_case_evidence.json'],['LaTeX报告','build_required_report.py','latex_report_revised/main.tex']]))
 add(r'''```text
 python t1_experiment.py
 python t2_experiment.py
@@ -298,6 +336,7 @@ python t3_required.py --batch-size 16 --gradient-accumulation 2 --eval-batch-siz
 python t1_tfidf.py
 python bow_head64.py
 python analyze_required.py
+python analyze_t2_cases.py
 python build_required_report.py
 ```
 
@@ -315,6 +354,7 @@ python build_required_report.py
 8. [scikit-learn文本特征提取文档](https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction)：词袋和TF-IDF实现。
 ''')
 report=ROOT/'正式要求版_实验报告.md';report.write_text('\n'.join(parts),encoding='utf-8')
+(ROOT/'required_analysis/t2_cases.md').write_text('# T2 三方错例对比\n\n'+report.read_text(encoding='utf-8').split('## 三方错例：覆盖率之外的分类证据')[1].split('# Task 3')[0],encoding='utf-8')
 (OUT/'main.tex').write_text(preamble+convert(report,0)+'\n\\end{document}\n',encoding='utf-8')
 (OUT/'README.txt').write_text('主文件main.tex，UTF-8，使用XeLaTeX编译两次。封面已填写马传志，2411788；可在author中修改。figures目录与main.tex一起上传Overleaf。正式结果依据作业要求，历史512及TF-IDF为补充。',encoding='utf-8')
 print('Created',report,'characters',len(report.read_text(encoding='utf-8')))
