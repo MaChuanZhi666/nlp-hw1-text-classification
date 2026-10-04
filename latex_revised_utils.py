@@ -159,15 +159,15 @@ preamble=r'''% !TeX program = xelatex
 \begin{document}
 \maketitle
 \begin{abstract}
-本实验依据正式作业要求，在同一 NYT 数据划分上比较二值词袋、计数词袋、GloVe、
+本实验在同一 NYT 数据划分上比较二值词袋、计数词袋、GloVe、
 AG News 与 NYT 训练的 Word2Vec，以及输入长度为64、微调3轮的 BERT。
 所有传统表示均使用逻辑回归，模型参数只按验证集选择。
 实验不仅报告 Accuracy 与 Macro-F1，也从类别混淆、语料覆盖、正则化、
 逐样本错误与输入预算对照解释性能差异。
-全文计数词袋的测试 Macro-F1 为96.79\%，规定的 BERT-64 为93.95\%；
+全文计数词袋的测试 Macro-F1 为96.79\%，BERT-64 为93.95\%；
 而仅使用相同开头内容的计数词袋为91.47\%。
 这一结果提示：表示能力与可见文本范围共同影响分类效果，不能仅凭模型规模判定优劣。
-补充实验与规定实验明确区分，历史512长度结果不替代规定结果。
+词项贡献与三方错例进一步揭示了主题重叠、平均池化和文本截断对分类结果的影响。
 \end{abstract}
 \noindent\textbf{关键词：}新闻分类；词袋模型；逻辑回归；Word2Vec；BERT；误差分析
 \tableofcontents

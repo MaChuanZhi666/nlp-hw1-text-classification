@@ -12,19 +12,19 @@
 
 - T1：Binary BoW、Word Frequency，均使用LR；TF-IDF是额外补充。
 - T2：glove.6B 100d、AG News训练100d Word2Vec、NYT训练集训练100d Word2Vec，三组均以原始平均向量+LR作为主结果。
-- T3：google-bert/bert-base-uncased，max_length=64，完整训练3轮。历史512实验只用于补充对照。
-- 六组规定实验均报告Accuracy和Macro-F1；另有混淆矩阵、逐类指标、超参数选择、输入审计、错例、配对bootstrap与局限分析。
+- T3：google-bert/bert-base-uncased，max_length=64，完整训练3轮。另以512长度的头尾输入进行对照。
+- 主要实验均报告Accuracy和Macro-F1；另有混淆矩阵、逐类指标、超参数选择、输入审计、错例、配对bootstrap与局限分析。
 
 ## 本次补强（2026-10-01）
 
 - 短Count按验证集从六点网格选择C=10；测试Accuracy 95.81%、Macro-F1 91.47%，错误48篇。BERT同输入范围的Macro-F1优势为2.48个百分点。
 - 新增三方错例分析，分别覆盖AG、NYT、GloVe独有错误，包含实际未知词和可校验的逐词线性贡献。
 - [三方案例与解释](required_analysis/t2_cases.md)可直接阅读；[完整证据](required_analysis/t2_case_evidence.json)包含原文与全部贡献。
-- 补充分析属于事后探索，不改变规定任务的结果或划分。
+- 补充分析属于事后探索，不改变主要实验的结果或划分。
 
 ## 目录约定
 
-原始数据 `nyt.csv` 与 `ag.csv` 均直接保存在仓库根目录，无需解压或运行恢复程序。****
+原始数据 `nyt.csv` 与 `ag.csv` 均直接保存在仓库根目录，无需解压或运行恢复程序。
 
 `t1_results/splits.csv` 是所有方法共用的划分清单。row_id是原CSV从0开始的数据记录索引。NYT先去除72条完全重复记录，再seed=42分层随机划分为9157/1145/1145；原始文件未改动。
 
@@ -46,9 +46,9 @@ python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements_cpu.txt
 ```
 
-`bow_head64.py`只用Tokenizer，不需要GPU；若本地已有CPU PyTorch可继续保留。正式BERT训练需CUDA PyTorch；CPU版本不能运行该脚本。Linux GPU环境中的PyTorch应与驱动匹配，本次复现实测组合已列明，不要求改动系统环境。
+`bow_head64.py`只用Tokenizer，不需要GPU；若本地已有CPU PyTorch可继续保留。BERT训练需CUDA PyTorch；CPU版本不能运行该脚本。Linux GPU环境中的PyTorch应与驱动匹配，本次复现实测组合已列明，不要求改动系统环境。
 
-## 从零训练规定任务
+## 从零训练主要实验
 
 在项目根目录按顺序执行，以下`python`均指对应环境的解释器：
 
@@ -80,7 +80,7 @@ python analyze_t2_cases.py
 python build_required_report.py
 ```
 
-其中`t3_experiment.py`为历史512头尾输入配置，正式64实验是`t3_required.py`。提交包保留了历史512结果，因此仅重建报告时无需重训512。`analyze_required.py`读取各模型预测，重新核算Accuracy/F1/混淆矩阵并校验数据哈希，固定seed进行3000次配对bootstrap。
+其中`t3_experiment.py`为BERT-512头尾输入配置，BERT-64实验是`t3_required.py`。提交包保留了BERT-512结果，因此仅重建报告时无需重训512。`analyze_required.py`读取各模型预测，重新核算Accuracy/F1/混淆矩阵并校验数据哈希，固定seed进行3000次配对bootstrap。
 
 最后在`latex_report_revised`目录执行两次：
 
@@ -90,7 +90,7 @@ xelatex -interaction=nonstopmode -halt-on-error main.tex
 
 ## 结果核对（测试集百分数）
 
-| 正式模型 | Accuracy | Macro-F1 |
+| 模型 | Accuracy | Macro-F1 |
 |---|---:|---:|
 | Binary BoW | 98.60 | 96.85 |
 | Word Frequency | 98.69 | 96.79 |

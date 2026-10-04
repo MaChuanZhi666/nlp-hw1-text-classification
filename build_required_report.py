@@ -15,15 +15,13 @@ parts=[]
 def add(s):parts.append(s.strip()+'\n')
 add(r'''# 任务、数据与实验设计
 
-## 研究问题与要求边界
+## 研究问题与实验方案
 
-本实验研究：新闻主题分类中，显式词项统计、平均词向量和预训练上下文表示分别带来什么收益与限制？比较重点不仅是总体准确率，也包括少数类别表现、数据来源、输入范围及错误原因。依据课程《作业一要求》，T1为30分、T2为50分、T3为20分；因此将GloVe、AG News词向量与NYT词向量三组均作为正式实验，而不把CBOW与Skip-gram两种架构误当作T2要求的三组来源。
-
-文档中T1总述为“三种”，明细只列Binary BoW与Word Frequency两种。本报告完成两种明确要求，并将TF-IDF列为补充实验；这一处理不意味着老师已指定第三种就是TF-IDF。正式BERT实验严格采用64的最大输入长度和3个epoch，历史512长度实验仅作为补充观察。
+本实验研究：新闻主题分类中，显式词项统计、平均词向量和预训练上下文表示分别带来什么收益与限制？比较重点不仅是总体准确率，也包括少数类别表现、数据来源、输入范围及错误原因。词袋部分比较Binary、Count和TF-IDF；词向量部分比较GloVe预训练向量以及分别在AG News、NYT训练集上学习的Word2Vec；BERT采用最大输入长度64、微调3轮，并通过较长输入配置分析上下文范围的影响。
 
 ## 数据清理与固定划分
 
-NYT原始数据共11519条，字段为text和label。检查未发现空文本、缺失标签或相同文本对应冲突标签；有72条完全重复记录。为防止同一篇文章跨训练集与测试集造成记忆式收益，先按完整text去重，保留11447条。原始文件不修改。该预处理属于本实验的明确选择，正式文档并未要求去重，因此报告保留原始数与去重数供复核。
+NYT原始数据共11519条，字段为text和label。检查未发现空文本、缺失标签或相同文本对应冲突标签；有72条完全重复记录。为防止同一篇文章跨训练集与测试集造成记忆式收益，先按完整text去重，保留11447条。原始文件不修改。清理前后的样本数均予以记录，便于核对数据处理过程。
 
 随后采用seed=42的分层随机抽样：先分出20%，再将这部分平分为验证集与测试集，得到近似80%/10%/10%。两次抽样均shuffle，符合先随机打乱的原则；分层额外保证类别比例接近。三个集合之间的完全相同文本交集为零。所有方法沿用同一row_id划分清单，不因模型表现重新划分。
 ''')
@@ -47,13 +45,13 @@ F_{1,k}&=\frac{2P_kR_k}{P_k+R_k},\quad
 
 词袋词表、TF-IDF的IDF、自训练NYT词向量都只拟合NYT训练集；AG词向量只拟合AG；公开GloVe作为固定外部资源。验证集仅用于选择C或BERT checkpoint，测试集不参与梯度更新、词表学习或超参数选择。所有方法均不在选择后合并训练集与验证集重训，以保持数据使用规则一致。
 
-选参统一优先验证集Macro-F1，LR平分时取较小C，BERT平分时保留更早epoch。T1规定模型C取0.01、0.1、1；T2和补充TF-IDF取0.01至1000的六个十倍网格点。不同特征尺度对应的合理C不同，数值相同不代表正则化强度可直接比较。模型表现已被用于事后解释，新增消融也沿用原测试集，因此它们属于探索性分析，并非新测试集上的独立确认。
+选参统一优先验证集Macro-F1，LR平分时取较小C，BERT平分时保留更早epoch。Binary与Count模型C取0.01、0.1、1；T2和补充TF-IDF取0.01至1000的六个十倍网格点。不同特征尺度对应的合理C不同，数值相同不代表正则化强度可直接比较。模型表现已被用于事后解释，新增消融也沿用原测试集，因此它们属于探索性分析，并非新测试集上的独立确认。
 
 ## 分类器与统一预处理
 
-非BERT模型均使用小写化与正则分词，保留至少两个字母、数字或下划线组成的token；不删停用词，不做词干化。该规则对所有词袋和词向量方法一致。作业中的nltk.word_tokenize是可选建议，并非强制API；此处明确采用CountVectorizer分析器以统一实现。
+非BERT模型均使用小写化与正则分词，保留至少两个字母、数字或下划线组成的token；不删停用词，不做词干化。该规则对所有词袋和词向量方法一致。分词统一采用CountVectorizer分析器。
 
-LR采用One-vs-Rest、liblinear、L2正则、带截距、无类别权重、seed=42。每类分别拟合一个二元分类器，预测时取最大决策得分；不是将其误称为多项softmax回归。类别概率为OvR概率的归一化值，不能直接当作校准后的可靠度。达到最大迭代数的收敛警告会被转为错误；正式运行没有未处理的收敛警告。
+LR采用One-vs-Rest、liblinear、L2正则、带截距、无类别权重、seed=42。每类分别拟合一个二元分类器，预测时取最大决策得分。类别概率为OvR概率的归一化值，不能直接当作校准后的可靠度。达到最大迭代数的收敛警告会被转为错误；实验运行没有未处理的收敛警告。
 
 ```latex
 s_k(d)=\boldsymbol w_k^\top\boldsymbol x_d+b_k,\qquad
@@ -88,11 +86,11 @@ IDF只用训练集。TF-IDF同时改变词项权重和向量尺度，因此若�
 ## 结果与参数选择
 ''')
 add(table(['方法','C','验证Acc','验证F1','测试Acc','测试F1','错数'],[[n,m[n]['C'],pct(m[n]['validation']['accuracy']),pct(m[n]['validation']['macro_f1']),pct(m[n]['test']['accuracy']),pct(m[n]['test']['macro_f1']),m[n]['errors']]for n in ['Binary','Count','TF-IDF']]))
-add(r'''Count的验证Macro-F1最高，因此按预定规则选Count作为T1主模型。测试集上Binary的Macro-F1反而比Count高约0.06个百分点，而Count少错1条；这并不矛盾，Macro-F1对各类等权，不只统计总错数。不能看到测试分数后反过来宣称Binary才是验证集选出的模型。
+add(r'''Count的验证Macro-F1最高，因此按预定规则选Count作为T1主模型。测试集上Binary的Macro-F1反而比Count高约0.06个百分点，而Count少错1条；这并不矛盾，Macro-F1对各类等权，不只统计总错数。本文的模型选择保持以验证集结果为依据。
 
 从Binary切换到Count修正8条错误，同时新增7条，说明不是单纯在原模型上“多猜对1篇”。Count把business正确数从132提升至133，却将politics正确数从140降至139，sports从857升至858；少数类之间的Precision/Recall变化使总体Accuracy与Macro-F1排序不同。
 
-TF-IDF取得11条错误、测试Macro-F1为97.53%，相对Count修正6条并新增2条。它是本次测试上的最好点估计，但验证Macro-F1仍低于Count。后文配对区间跨零，因此不能把一次测试排名写成稳定优势，更不能用该补充结果替代两种规定实验。
+TF-IDF取得11条错误、测试Macro-F1为97.53%，相对Count修正6条并新增2条。它是本次测试上的最好点估计，但验证Macro-F1仍低于Count。后文配对区间跨零，因此不能把一次测试排名写成稳定优势，这一差异仍需更多独立实验验证。
 
 ## 训练权重与单篇贡献
 ''')
@@ -115,11 +113,11 @@ add(r'''# Task 2：三种来源的100维词向量
 
 ## 三组实验的实现与来源
 
-GloVe使用作业指定的glove.6B.100d.txt，共400000词、每词100维，来自斯坦福官方glove.6B.zip，而不是较新的2024版或其他维度。官方说明该6B模型由Wikipedia 2014与Gigaword 5语料训练。下载时只读取ZIP中的100d成员，并由ZIP CRC校验完整性；完整文件SHA-256保存在来源记录中。
+GloVe使用glove.6B.100d.txt，共400000词、每词100维，来自斯坦福官方glove.6B.zip。官方说明该6B模型由Wikipedia 2014与Gigaword 5语料训练。下载时只读取ZIP中的100d成员，并由ZIP CRC校验完整性；完整文件SHA-256保存在来源记录中。
 
 GloVe利用全局词词共现统计学习表示；Word2Vec在局部上下文预测任务中学习向量。本实验两种自训练来源统一采用Skip-gram与负采样，固定100维、window=5、min_count=2、negative=5、sample=0.001、epochs=10、workers=1、seed=42，使用稳定CRC32词哈希。先按句末标点切分句子，再用统一分析器分词，以免窗口跨越无关句子。
 
-AG组只在89971条AG文本训练；NYT组只用9157条NYT训练文本，复用已完成并校验过的同参数Skip-gram向量，不用验证集或测试集训练词向量。CBOW历史结果不属于作业规定的第四组，也不进入主结果排名。
+AG组只在89971条AG文本训练；NYT组只用9157条NYT训练文本，复用已完成并校验过的同参数Skip-gram向量，不用验证集或测试集训练词向量。三组采用相同的文档池化方法与分类器，比较不同词向量来源的效果。
 
 ## 文档池化、未知词与分类器
 
@@ -130,9 +128,9 @@ AG组只在89971条AG文本训练；NYT组只用9157条NYT训练文本，复用�
 \boldsymbol h(d)=\frac{1}{|\mathcal I_d|}\sum_{i\in\mathcal I_d}\boldsymbol e(w_i).
 ```
 
-正式结果直接用该平均向量训练LR，不额外归一化；L2归一化只作为独立补充消融。无监督词向量在分类阶段保持固定，不接受NYT标签的反向传播。100维平均向量比60947维稀疏词袋紧凑，但将每篇文档压缩为一个中心点，会丢失词序、不同主题段落的位置和部分稀有判别词信息。
+分类时直接用该平均向量训练LR，不额外归一化；L2归一化只作为独立补充消融。无监督词向量在分类阶段保持固定，不接受NYT标签的反向传播。100维平均向量比60947维稀疏词袋紧凑，但将每篇文档压缩为一个中心点，会丢失词序、不同主题段落的位置和部分稀有判别词信息。
 
-## 正式结果与覆盖率
+## 分类结果与覆盖率
 ''')
 add(table(['来源','词表大小','测试覆盖率','C','验证F1','测试Acc','测试F1'],[[n,t2[k]['vocabulary'],pct(t2[k]['coverage']['test']['token_coverage']),m[n]['C'],pct(m[n]['validation']['macro_f1']),pct(m[n]['test']['accuracy']),pct(m[n]['test']['macro_f1'])]for n,k in [('GloVe','glove'),('AG-W2V','ag'),('NYT-W2V','nyt')]]))
 add(r'''覆盖率按已知token总数除以总token数计算，计入重复词，不是词类型覆盖率。GloVe覆盖率最高，但测试Macro-F1并未最高；NYT词向量测试Macro-F1高于AG约1.05个百分点，高于GloVe约0.46个百分点。差异很小且配对区间均跨零，应将“同域语料可能有帮助”作为解释线索，而不是已被确定证明的普遍规律。
@@ -192,7 +190,7 @@ AG与NYT中的hockey同样推向sports，贡献分别为+3.333和+3.002，但全
 
 三例说明：覆盖率衡量词是否可用，逐词贡献解释当前线性分类器怎样累计证据，二者都不能单独代表篇章理解能力。主结果中NYT的测试点估计最高，但AG与GloVe各自也有正确而NYT错误的样本，因此仍保留三来源差异区间跨零的结论。
 ''')
-add(r'''# Task 3：严格按64长度微调BERT
+add(r'''# Task 3：BERT微调与输入长度分析
 
 ## 模型、tokenization与训练设置
 
@@ -200,9 +198,9 @@ add(r'''# Task 3：严格按64长度微调BERT
 
 Tokenizer设置max_length=64、truncation=True，保留开头最多62个正文WordPiece，再加CLS和SEP。动态padding，attention_mask区分正文与padding，单文本token_type_ids均为0。完整长度只用于统计截断情况，不送入模型训练，也不用于选参。
 
-严格训练3轮，AdamW学习率2e-5，weight_decay=0.01（bias和LayerNorm权重不衰减），前10%更新线性warmup，其后线性衰减；梯度裁剪1.0。micro-batch=16、累积2步，有效batch约32；最后不足一组时按实际样本数缩放梯度。验证batch=32，无类别加权。固定Python、NumPy与Torch种子42；不同CUDA内核与混合精度环境仍可能出现微小差异。
+训练3轮，AdamW学习率2e-5，weight_decay=0.01（bias和LayerNorm权重不衰减），前10%更新线性warmup，其后线性衰减；梯度裁剪1.0。micro-batch=16、累积2步，有效batch约32；最后不足一组时按实际样本数缩放梯度。验证batch=32，无类别加权。固定Python、NumPy与Torch种子42；不同CUDA内核与混合精度环境仍可能出现微小差异。
 
-实验在用户授权的RTX A6000 48GB服务器进行，PyTorch 2.1.2+cu121、Transformers 4.46.3、Python 3.8.10，使用BF16。采用验证Macro-F1最高的checkpoint，3轮训练全部完成后才进行最终测试；本次恰好选中第3轮，因此最终结果也对应训练满3轮的模型。
+实验在配备RTX A6000 48GB的服务器上进行，PyTorch 2.1.2+cu121、Transformers 4.46.3、Python 3.8.10，使用BF16。采用验证Macro-F1最高的checkpoint，3轮训练全部完成后才进行最终测试；本次恰好选中第3轮，因此最终结果也对应训练满3轮的模型。
 
 ## 训练曲线与结果
 ''')
@@ -225,16 +223,16 @@ add(r'''扩展网格选中C=10，其验证Macro-F1为90.74%，高于C=1的90.41%
 
 BERT-64较更新后的短Count的Macro-F1高2.48个百分点，修正28条并新增13条错误，配对bootstrap的95%区间约为[+0.24,+4.77]个百分点。这支持本次同输入范围下预训练方案的收益，且结论没有因扩大短Count搜索而反转。后续分词、预训练资源及模型结构仍不同，不能把差值解释为单一架构因素的因果效果。由于此次扩展发生在已查看原测试结果之后，仍属于探索性补充。
 
-历史BERT-512（头255、尾254个正文WordPiece，双片段）测试Macro-F1为96.98%，高出3.03个百分点。但长度、位置与segment编码同时改变，这不是只改变长度的严格消融，也不能替代规定的64长度结果。
+BERT-512（头255、尾254个正文WordPiece，双片段）测试Macro-F1为96.98%，高出3.03个百分点。但长度、位置与segment编码同时改变，这不是只改变长度的严格消融，其结果反映了输入长度与采样位置共同变化的影响。
 ''')
 add(r'''# 综合比较与统计不确定性
 
-## 六组规定实验的总结果
+## 主要模型的总体表现
 ''')
 primary=['Binary','Count','GloVe','AG-W2V','NYT-W2V','BERT-64']
 add(table(['方法','验证Acc','验证F1','测试Acc','测试F1','错误数'],[[n,pct(m[n]['validation']['accuracy']),pct(m[n]['validation']['macro_f1']),pct(m[n]['test']['accuracy']),pct(m[n]['test']['macro_f1']),m[n]['errors']]for n in primary]))
-add('![规定实验总体指标，横轴从0开始](required_analysis/required_metrics.png)')
-add(r'''在规定实验中，Count的验证Macro-F1最高，应按验证规则选为整体主模型；Binary测试Macro-F1略高不改变这一选择。T2内部验证分数最高的是GloVe，而测试最高的是NYT-W2V，这个排序反转再次说明不能用测试集选模型。补充TF-IDF测试点估计最好，但不在规定六组的主图中混排。
+add('![主要模型的Accuracy与Macro-F1](required_analysis/required_metrics.png)')
+add(r'''在主要模型中，Count的验证Macro-F1最高，应按验证规则选为整体主模型；Binary测试Macro-F1略高不改变这一选择。T2内部验证分数最高的是GloVe，而测试最高的是NYT-W2V，这个排序反转再次说明不能用测试集选模型。TF-IDF的结果见词袋实验部分，其测试Macro-F1点估计最高。
 
 ## 逐类表现：多数类会掩盖什么
 ''')
@@ -261,38 +259,38 @@ add(r'''# 错误案例：从可见证据到解释
 
 ## 案例选择和证据边界
 
-以下案例按错误类型人工选取，旨在解释机制，不是随机样本，也不能据此估计某类原因在全部错误中的占比。每个row_id可在原始数据、逐样本预测和BERT输入审计中定位。模型原始分数可检查，BERT“关注了哪个词”没有通过归因实验验证，因此只讨论可见文本与预测的相容解释，不将阅读者的理解冒充模型内部推理。
+以下案例按错误类型人工选取，旨在解释机制，不是随机样本，也不能据此估计某类原因在全部错误中的占比。每个row_id可在原始数据、逐样本预测和BERT输入审计中定位。模型原始分数可检查，BERT“关注了哪个词”没有通过归因实验验证，因此只讨论可见文本与预测的相容解释，相关解释仍需归因实验进一步检验。
 ''')
 cases=[(4400,'导语叙事延迟'),(7009,'经济背景与政治治理'),(9704,'体育题材服务于商业营销'),(2849,'已可见的政治线索仍被忽略'),(4043,'多主题且跨模型持续混淆'),(5964,'比喻性体育措辞'),(7878,'第一人称叙事与主旨延后')]
 p=pd.read_csv(ROOT/'required_analysis/all_predictions.csv').set_index('row_id')
 add(table(['row_id','真实','Count','GloVe','NYT-W2V','BERT-64','BERT-512'],[[i,p.loc[i,'label'],*[p.loc[i,n]for n in ['Count','GloVe','NYT-W2V','BERT-64','BERT-512']]]for i,_ in cases]))
 add(r'''## 案例4400：核心事件出现在导语之后
 
-真实标签sports。前62个正文WordPiece主要介绍Anthony Bosch、商人、投资者与诊所，BERT-64以约99.7%概率判business；后续才说明诊所牵涉职业棒球兴奋剂丑闻，包括Major League Baseball与球员。全文Count和历史BERT-512均正确。此处确实能在输入审计中看到关键体育信息被64截断排除，支持“主旨延后导致信息不足”的解释；但仍不能证明仅把某一个词补回就必然纠错。
+真实标签sports。前62个正文WordPiece主要介绍Anthony Bosch、商人、投资者与诊所，BERT-64以约99.7%概率判business；后续才说明诊所牵涉职业棒球兴奋剂丑闻，包括Major League Baseball与球员。全文Count和BERT-512均正确。此处确实能在输入审计中看到关键体育信息被64截断排除，支持“主旨延后导致信息不足”的解释；但仍不能证明仅把某一个词补回就必然纠错。
 
 ## 案例7009：共享语义与不同信息范围
 
-真实标签politics，主题为废弃天然气井的公共治理。开头聚焦价格下降、企业消失与破产，64输入在费用讨论处截断；州长拨款、议会问责等信息在后文。BERT-64和全文Count都判business，历史512模型正确。Count虽然读到全文，但company与companies合计对错误类别贡献约+7.668，state则支持politics约-5.715，说明它与BERT-64错误相同，失误路径却可能不同：一个缺少后文，一个有后文但词项累积边界不合适。
+真实标签politics，主题为废弃天然气井的公共治理。开头聚焦价格下降、企业消失与破产，64输入在费用讨论处截断；州长拨款、议会问责等信息在后文。BERT-64和全文Count都判business，BERT-512模型正确。Count虽然读到全文，但company与companies合计对错误类别贡献约+7.668，state则支持politics约-5.715，说明它与BERT-64错误相同，失误路径却可能不同：一个缺少后文，一个有后文但词项累积边界不合适。
 
 ## 案例9704：不能把错误都归因于截断
 
-真实标签business。文章讲万豪借Jackie Robinson电影推广会员计划，开头已经明确包含marriott、promote、loyalty program和campaign，BERT-64仍判sports，置信度约99.6%；历史512也判sports，而Count正确。体育实体在这里服务于商业营销。因为商业线索已在可见输入里，不能声称“BERT没看到任何商业信息”；更合理的解释是跨主题主次关系没有被正确区分，但需要额外归因或反事实实验才能验证模型具体依赖什么。
+真实标签business。文章讲万豪借Jackie Robinson电影推广会员计划，开头已经明确包含marriott、promote、loyalty program和campaign，BERT-64仍判sports，置信度约99.6%；BERT-512也判sports，而Count正确。体育实体在这里服务于商业营销。因为商业线索已在可见输入里，不能声称“BERT没看到任何商业信息”；更合理的解释是跨主题主次关系没有被正确区分，但需要额外归因或反事实实验才能验证模型具体依赖什么。
 
 ## 案例2849：分类边界而非纯输入缺失
 
-真实标签politics，涉及医保交易平台开放、联邦政府与保险价格。前62个WordPiece已包含partisan debate、federal government等政治证据，也包含insurers、marketplaces等商业词。BERT-64以约99.3%概率判business，全文Count与历史512正确。该例与4400不同：主类别线索没有完全缺失，输入短只是限制背景的一部分，类别边界混淆本身仍需解释。
+真实标签politics，涉及医保交易平台开放、联邦政府与保险价格。前62个WordPiece已包含partisan debate、federal government等政治证据，也包含insurers、marketplaces等商业词。BERT-64以约99.3%概率判business，全文Count与BERT-512正确。该例与4400不同：主类别线索没有完全缺失，输入短只是限制背景的一部分，类别边界混淆本身仍需解释。
 
 ## 案例4043：体育活动中的退伍军人议题
 
-真实sports，Count及两种BERT长度均判politics。文章同时有高尔夫康复、女性退伍军人和战争创伤内容，长度扩展没有纠错。前文已核对Count的veterans与golf贡献，证明两方面证据同时存在。这属于栏目标签与多主题内容边界困难的案例，不能未经人工标注复核就把原标签改成politics，或把错误剔除来提高分数。
+真实sports，Count及两种BERT长度均判politics。文章同时有高尔夫康复、女性退伍军人和战争创伤内容，长度扩展没有纠错。前文已核对Count的veterans与golf贡献，证明两方面证据同时存在。这属于栏目标签与多主题内容边界困难的案例，该样本保留原始标签参与评价，体现了多主题文章与单一栏目标签之间的边界问题。
 
 ## 案例5964：导语比喻误导主题
 
-真实business，文章讨论旅行信用卡与机场贵宾室权益，导语用NCAA篮球竞猜作比喻。BERT-64判sports，全文Count与历史512正确。短输入已包含credit card perks，但体育比喻占用较多token；后续American Express、年费与金融竞争的展开未被64输入充分覆盖。它同时涉及修辞理解和后文缺失，不宜强行归入单一原因。
+真实business，文章讨论旅行信用卡与机场贵宾室权益，导语用NCAA篮球竞猜作比喻。BERT-64判sports，全文Count与BERT-512正确。短输入已包含credit card perks，但体育比喻占用较多token；后续American Express、年费与金融竞争的展开未被64输入充分覆盖。它同时涉及修辞理解和后文缺失，不宜强行归入单一原因。
 
 ## 案例7878：第一人称叙述缺少显式主题词
 
-真实sports，开头是压力、哭泣和团队情感的自述，BERT-64判business；全文Count也判business，历史512正确。后文明确提到soccer、training camp和国家队成员。Count错误贡献中含of、that、is等高频功能词，说明统计模型可能受到文体和训练相关性的影响。此例支持后文语境有价值，但不证明512模型在所有叙事文章上都更强。
+真实sports，开头是压力、哭泣和团队情感的自述，BERT-64判business；全文Count也判business，BERT-512正确。后文明确提到soccer、training camp和国家队成员。Count错误贡献中含of、that、is等高频功能词，说明统计模型可能受到文体和训练相关性的影响。此例支持后文语境有价值，但不证明512模型在所有叙事文章上都更强。
 
 ## 高置信错误与可靠性
 
@@ -302,11 +300,11 @@ add(r'''# 结论、局限与复现
 
 ## 回答研究问题
 
-第一，显式词统计在本数据上很强。主题词对标签有直接判别力，全文Count在规定实验中验证Macro-F1最高；Binary与Count的测试差距很小，不能根据1条错误差认定一种普遍更优。
+第一，显式词统计在本数据上很强。主题词对标签有直接判别力，全文Count在主要模型中验证Macro-F1最高；Binary与Count的测试差距很小，不能根据1条错误差认定一种普遍更优。
 
-第二，平均词向量实现了低维表示，但紧凑不保证更准确。三组规定T2均已实际完成；NYT组测试点估计最高，GloVe验证表现最高。覆盖率、同域共现与语料规模有解释价值，却没有单独决定最终性能。平均操作和单一线性边界对跨主题文档存在限制。
+第二，平均词向量实现了低维表示，但紧凑不保证更准确。三种词向量来源中，NYT组测试点估计最高，GloVe验证表现最高。覆盖率、同域共现与语料规模有解释价值，却没有单独决定最终性能。平均操作和单一线性边界对跨主题文档存在限制。
 
-第三，BERT的优势取决于实验约束。严格64长度下，它低于全文词袋，却优于本次同输入范围的短词袋。历史512结果提示更多上下文有帮助，但改变了多个因素，只能作为探索性补充。模型规模、预训练、输入预算和标签定义必须一起讨论。
+第三，BERT的优势取决于实验约束。输入长度为64时，它低于全文词袋，却优于本次同输入范围的短词袋。BERT-512结果提示更多上下文有帮助，但改变了多个因素，只能作为探索性补充。模型规模、预训练、输入预算和标签定义必须一起讨论。
 
 ## 局限与可检验的改进方向
 
@@ -314,18 +312,18 @@ add(r'''# 结论、局限与复现
 
 去重只覆盖完全一致文本；相同事件、来源文风和栏目模板可能同时进入训练与测试。案例9704尾部含Business Day等栏目提示，全文模型可能利用这种数据捷径。尚未做去模板或按时间/事件划分实验，因此高分不能直接解释为纯粹语义理解或真实部署性能。
 
-GloVe与BERT来自大规模公开预训练，其训练语料是否含这些新闻无法完全排除；三种T2来源的规模、词表和目标也不完全相同。报告比较的是作业规定的实际方案，不能将全部差异归因于某一个算法因素。
+GloVe与BERT来自大规模公开预训练，其训练语料是否含这些新闻无法完全排除；三种T2来源的规模、词表和目标也不完全相同。因此，观察到的差异反映了表示学习、训练语料和分类器的共同作用。
 
-如果继续研究，应预先固定新实验计划：在不改变正式64长度结果的前提下，比较头部、尾部或分段聚合；在独立验证集探索停用词处理、加权平均和类别权重；用多个种子报告均值与标准差；对栏目模板移除前后进行对照。上述项目尚未完成，不作为本报告已有成果。
+如果继续研究，应预先固定新实验计划：比较头部、尾部或分段聚合等输入方式；在独立验证集探索停用词处理、加权平均和类别权重；用多个种子报告均值与标准差；对栏目模板移除前后进行对照。这些方向有助于进一步检验模型对语境与数据分布变化的适应能力。
 
 ## 文件与复现入口
 
-仓库：[MaChuanZhi666/nlp-hw1-text-classification](https://github.com/MaChuanZhi666/nlp-hw1-text-classification)。老师可直接查看PDF与已保存结果，无需运行程序。完整复现说明见提交包README。原始nyt.csv与ag.csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
+仓库：[MaChuanZhi666/nlp-hw1-text-classification](https://github.com/MaChuanZhi666/nlp-hw1-text-classification)。仓库提供可直接阅读的PDF与实验结果。完整复现说明见提交包README。原始nyt.csv与ag.csv、固定划分清单、指标JSON和逐样本预测应一起保存。预训练权重体积大，使用下载脚本和来源哈希重建，不把本地环境目录与模型权重混入代码仓库。
 ''')
 add(table(['步骤','脚本/文件','输出'],[
 ['T1与划分','t1_experiment.py','t1_results'],['NYT词向量','t2_experiment.py','t2_results/skipgram.kv'],
-['GloVe准备','prepare_glove.py','models/glove'],['规定T2','t2_required.py','t2_required_results'],['BERT准备','prepare_bert.py','models/bert-base-uncased'],
-['规定T3','t3_required.py','t3_64_results'],['补充实验','t1_tfidf.py、bow_head64.py','对应results目录'],['重算与绘图','analyze_required.py','required_analysis'],['T2三方证据','analyze_t2_cases.py','required_analysis/t2_case_evidence.json'],['LaTeX报告','build_required_report.py','latex_report_revised/main.tex']]))
+['GloVe准备','prepare_glove.py','models/glove'],['词向量分类','t2_required.py','t2_required_results'],['BERT准备','prepare_bert.py','models/bert-base-uncased'],
+['BERT-64','t3_required.py','t3_64_results'],['补充实验','t1_tfidf.py、bow_head64.py','对应results目录'],['重算与绘图','analyze_required.py','required_analysis'],['T2三方证据','analyze_t2_cases.py','required_analysis/t2_case_evidence.json'],['LaTeX报告','build_required_report.py','latex_report_revised/main.tex']]))
 add(r'''```text
 python t1_experiment.py
 python t2_experiment.py
@@ -340,21 +338,20 @@ python analyze_t2_cases.py
 python build_required_report.py
 ```
 
-分析脚本另读取已保存的历史BERT-512结果以生成补充对照；若从零复现所有补充项，按README运行t3_experiment.py。正式任务只要求t3_required.py。LaTeX源码独立可编辑，用XeLaTeX连续编译两次；不需要Python才能编辑正文。
+分析脚本另读取已保存的BERT-512结果以生成补充对照；若从零复现所有补充项，按README运行t3_experiment.py。BERT-64对应t3_required.py。LaTeX源码独立可编辑，用XeLaTeX连续编译两次；不需要Python才能编辑正文。
 
 ## 来源及方法参考
 
-1. 课程文档《作业一要求》：实验范围、数据比例、维度、指标、BERT长度与轮数依据。提交物为PDF、完整代码及运行说明，以包含全部文件的GitHub链接提交；原文截止为10月12日上午11:55。
-2. [GloVe官方项目页](https://nlp.stanford.edu/projects/glove/)：6B预训练向量、语料来源与下载。
-3. [Pennington等：GloVe论文](https://nlp.stanford.edu/pubs/glove.pdf)：全局共现词向量方法。
-4. [Mikolov等：Efficient Estimation of Word Representations](https://arxiv.org/abs/1301.3781)：Word2Vec方法。
-5. [Gensim Word2Vec文档](https://radimrehurek.com/gensim/models/word2vec.html)：参数与实现。
-6. [Devlin等：BERT论文](https://arxiv.org/abs/1810.04805)：预训练与微调方法。
-7. [google-bert/bert-base-uncased模型页](https://huggingface.co/google-bert/bert-base-uncased)：实际预训练模型来源。
-8. [scikit-learn文本特征提取文档](https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction)：词袋和TF-IDF实现。
+1. [GloVe官方项目页](https://nlp.stanford.edu/projects/glove/)：6B预训练向量、语料来源与下载。
+2. [Pennington等：GloVe论文](https://nlp.stanford.edu/pubs/glove.pdf)：全局共现词向量方法。
+3. [Mikolov等：Efficient Estimation of Word Representations](https://arxiv.org/abs/1301.3781)：Word2Vec方法。
+4. [Gensim Word2Vec文档](https://radimrehurek.com/gensim/models/word2vec.html)：参数与实现。
+5. [Devlin等：BERT论文](https://arxiv.org/abs/1810.04805)：预训练与微调方法。
+6. [google-bert/bert-base-uncased模型页](https://huggingface.co/google-bert/bert-base-uncased)：实际预训练模型来源。
+7. [scikit-learn文本特征提取文档](https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction)：词袋和TF-IDF实现。
 ''')
 report=ROOT/'正式要求版_实验报告.md';report.write_text('\n'.join(parts),encoding='utf-8')
 (ROOT/'required_analysis/t2_cases.md').write_text('# T2 三方错例对比\n\n'+report.read_text(encoding='utf-8').split('## 三方错例：覆盖率之外的分类证据')[1].split('# Task 3')[0],encoding='utf-8')
 (OUT/'main.tex').write_text(preamble+convert(report,0)+'\n\\end{document}\n',encoding='utf-8')
-(OUT/'README.txt').write_text('主文件main.tex，UTF-8，使用XeLaTeX编译两次。封面已填写马传志，2411788；可在author中修改。figures目录与main.tex一起上传Overleaf。正式结果依据作业要求，历史512及TF-IDF为补充。',encoding='utf-8')
+(OUT/'README.txt').write_text('主文件main.tex，UTF-8，使用XeLaTeX编译两次。封面已填写马传志，2411788；可在author中修改。figures目录与main.tex一起上传Overleaf。报告包含词袋、词向量和BERT的实验结果与误差分析。',encoding='utf-8')
 print('Created',report,'characters',len(report.read_text(encoding='utf-8')))
