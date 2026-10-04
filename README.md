@@ -109,4 +109,3 @@ xelatex -interaction=nonstopmode -halt-on-error main.tex
 - glove.6B.100d.txt SHA256：`95dde4dfd627ab26608d33e76d1195ec059734bd29089ea52cadb08d07c64544`
 - BERT来源记录位于`models/bert-base-uncased/source.json`；源代码固定了同一revision。
 
-`requirements_audit/缺项核对与修订.md`记录旧PDF缺项和本轮补齐情况。报告已完成实验内容；最终按老师要求提交包含PDF、完整代码和运行说明的GitHub仓库链接。提交链接：https://github.com/MaChuanZhi666/nlp-hw1-text-classification 。
