@@ -15,12 +15,7 @@
 - T3：google-bert/bert-base-uncased，max_length=64，完整训练3轮。另以512长度的头尾输入进行对照。
 - 主要实验均报告Accuracy和Macro-F1；另有混淆矩阵、逐类指标、超参数选择、输入审计、错例、配对bootstrap与局限分析。
 
-## 本次补强（2026-10-01）
 
-- 短Count按验证集从六点网格选择C=10；测试Accuracy 95.81%、Macro-F1 91.47%，错误48篇。BERT同输入范围的Macro-F1优势为2.48个百分点。
-- 新增三方错例分析，分别覆盖AG、NYT、GloVe独有错误，包含实际未知词和可校验的逐词线性贡献。
-- [三方案例与解释](required_analysis/t2_cases.md)可直接阅读；[完整证据](required_analysis/t2_case_evidence.json)包含原文与全部贡献。
-- 补充分析属于事后探索，不改变主要实验的结果或划分。
 
 ## 目录约定
 
