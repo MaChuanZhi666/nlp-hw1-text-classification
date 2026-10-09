@@ -41,7 +41,7 @@ python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements_cpu.txt
 ```
 
-`bow_head64.py`只用Tokenizer，不需要GPU；若本地已有CPU PyTorch可继续保留。BERT训练需CUDA PyTorch；CPU版本不能运行该脚本。Linux GPU环境中的PyTorch应与驱动匹配，本次复现实测组合已列明，不要求改动系统环境。
+`bow_head64.py`只用Tokenizer，不需要GPU；BERT训练需CUDA PyTorch；CPU版本不能运行该脚本。Linux GPU环境中的PyTorch应与驱动匹配，本次复现实测组合已列明，不要求改动系统环境。
 
 ## 从零训练主要实验
 
