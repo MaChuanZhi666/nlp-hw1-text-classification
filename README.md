@@ -29,7 +29,7 @@
 
 ## 环境
 
-实验使用两个环境，不必强行安装成一个环境。
+实验使用两个环境。
 
 1. 本地CPU：Python 3.13.5，依赖见 `requirements_cpu.txt`，用于T1、T2、补充TF-IDF与报告分析。
 2. GPU：Python 3.8.10、PyTorch 2.1.2+cu121、RTX A6000，依赖见 `requirements_gpu.txt`。
